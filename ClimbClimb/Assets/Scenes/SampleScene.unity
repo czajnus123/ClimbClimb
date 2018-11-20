@@ -1218,8 +1218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed197c9fcba13b44ad8d06b8d5db752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ob: {fileID: 1201650924148074, guid: 171ffc41f9a830d42b9dcec355b638db, type: 2}
-  sob: {fileID: 1921370825}
+  playerPrefab: {fileID: 1201650924148074, guid: 171ffc41f9a830d42b9dcec355b638db,
+    type: 2}
+  spawnPlayerPos: {fileID: 1921370825}
   spawnRight: {fileID: 938737190}
   spawnLeft: {fileID: 595709411}
   obstacle: {fileID: 1697991850876488, guid: de9a31f2bb414ce43945b9e4a7603155, type: 2}
