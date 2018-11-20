@@ -1225,6 +1225,7 @@ MonoBehaviour:
   obstacle: {fileID: 1697991850876488, guid: de9a31f2bb414ce43945b9e4a7603155, type: 2}
   rightSide: 0
   gameOver: 0
+  endMenu: 0
 --- !u!114 &1359569002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,7 +1244,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1359569000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9397393, y: 0.11693107, z: -0.008029416}
+  m_LocalPosition: {x: -5.07, y: 0.11693107, z: -0.008029416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1732,7 +1733,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2003407303}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.007, y: -0.13931264, z: 0}
+  m_LocalPosition: {x: 0, y: -0.13931264, z: 0}
   m_LocalScale: {x: 0.088495575, y: 0.049279325, z: 1}
   m_Children: []
   m_Father: {fileID: 773190231}
