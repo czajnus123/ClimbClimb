@@ -22,7 +22,7 @@ public class GameControllerScript : MonoBehaviour {
 	void Start () {
         spawned = true;
         rightSide = true;
-        gameOver = false;
+        gameOver = true;
 
         //GameObject.Find("PointCounter").GetComponent<TextMesh>().text="Dupa";
 
@@ -32,6 +32,13 @@ public class GameControllerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (Input.touchCount > 0 && gameOver == true)
+        {
+            gameOver = false;
+            GameObject.Find("TapToPlay").SetActive(false);
+        }
+
         if (gameOver == false)
         {
             if (spawned == true)
