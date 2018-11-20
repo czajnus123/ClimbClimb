@@ -9,10 +9,12 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject sob;
     public GameObject spawnRight;
     public GameObject spawnLeft;
+
     public GameObject obstacle;
 
     public bool rightSide;
     public bool gameOver;
+    public bool endMenu;
 
     bool spawned;
     float seconds;
@@ -23,6 +25,7 @@ public class GameControllerScript : MonoBehaviour {
         spawned = true;
         rightSide = true;
         gameOver = true;
+        endMenu = false;
 
         //GameObject.Find("PointCounter").GetComponent<TextMesh>().text="Dupa";
 
@@ -33,10 +36,13 @@ public class GameControllerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.touchCount > 0 && gameOver == true)
+        if (Input.touchCount > 0 && gameOver == true && endMenu==false)
         {
             gameOver = false;
-            GameObject.Find("TapToPlay").SetActive(false);
+            if (GameObject.Find("TapToPlay"))
+            {
+                GameObject.Find("TapToPlay").SetActive(false);
+            }
         }
 
         if (gameOver == false)
@@ -75,5 +81,10 @@ public class GameControllerScript : MonoBehaviour {
     public bool GetGameOver()
     {
         return gameOver;
+    }
+
+    public void SetEndMenu(bool endMenubool)
+    {
+        endMenu = endMenubool;
     }
 }

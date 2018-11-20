@@ -70,8 +70,10 @@ public class PlayerScript : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
-        Destroy(gameObject);
         gameController.SetGameOver(true);
+        gameController.SetEndMenu(true);
+        Destroy(gameObject);
+        
 
 
     }
