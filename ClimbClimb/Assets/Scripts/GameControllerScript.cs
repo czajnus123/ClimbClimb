@@ -5,8 +5,8 @@ using TMPro;
 
 public class GameControllerScript : MonoBehaviour {
 
-    public GameObject ob;
-    public GameObject sob;
+    public GameObject playerPrefab;
+    public GameObject spawnPlayerPos;
     public GameObject spawnRight;
     public GameObject spawnLeft;
 
@@ -29,7 +29,7 @@ public class GameControllerScript : MonoBehaviour {
 
         //GameObject.Find("PointCounter").GetComponent<TextMesh>().text="Dupa";
 
-        Instantiate(ob, new Vector2(sob.transform.position.x, sob.transform.position.y), Quaternion.identity); 
+        Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity); 
 
 	}
 	
