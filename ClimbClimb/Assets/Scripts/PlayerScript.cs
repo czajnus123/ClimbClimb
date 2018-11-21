@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour {
     private GameObject posLeft;
     private GameControllerScript gameController;
     private SaveScript saveManager;
+    private Touch touch;
 
     private bool rightSide;
     private bool left;
@@ -30,13 +31,17 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.touchCount > 0)
+        if (gameController.GetGameOver() == false)
         {
-            if (gameController.GetGameOver() == false)
+            if (Input.touchCount > 0)
             {
-                Touch touch = Input.GetTouch(0);
+                touch = Input.GetTouch(0);
+            }
+
+                 
                 if (touch.phase == TouchPhase.Began)
                 {
+                    Debug.Log("tapped");
                     tapped = true;
                 }
                 if (tapped == true)
@@ -52,12 +57,12 @@ public class PlayerScript : MonoBehaviour {
 
                         GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = true;
                     }
-                    if (gameObject.transform.position.x == posLeft.transform.position.x)
+                    if (gameObject.transform.position == posLeft.transform.position)
                     {
                         tapped = false;
                         rightSide = false;
                     }
-                    else if (gameObject.transform.position.x == posRight.transform.position.x)
+                    else if (gameObject.transform.position == posRight.transform.position)
                     {
                         tapped = false;
                         rightSide = true;
@@ -65,7 +70,7 @@ public class PlayerScript : MonoBehaviour {
                 }
             }
 
-        }
+        
 		
 	}
     private void OnCollisionEnter2D(Collision2D collision)
