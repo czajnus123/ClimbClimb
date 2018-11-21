@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class SpawnManagerScript : MonoBehaviour {
 
-    private int obstacleType;   //if >1<5 basic if >5<10-tunnel
+    private float obstacleType;   //if 0 basic, else if 1 tunnel
 
     private float seconds;
     private float points;
 
-    private bool spawned;
+    private bool toSpawn;
     private bool changeSpawnCounter;
     private bool spawnBasic;
     private bool spawnTunnel;
-    int side = 0;
+    float side; //if 0 - left, else if 1 - right 
 
     public GameObject spawnRight;
     public GameObject spawnLeft;
@@ -35,7 +35,7 @@ public class SpawnManagerScript : MonoBehaviour {
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
 
-        spawned = true;
+        toSpawn = true;
         spawnBasic = true;
         spawnTunnel = false;
         changeSpawnCounter = true;
@@ -47,9 +47,9 @@ public class SpawnManagerScript : MonoBehaviour {
 
         if (gameController.GetGameOver() == false)
         {
-            if (spawned == true)
+            if (toSpawn == true)
             {
-                if (obstacleType >=0&&obstacleType<=5)
+                if (obstacleType == 0)
                 {
                     if (!FindByTag("Tunnel"))
                     {
@@ -57,68 +57,55 @@ public class SpawnManagerScript : MonoBehaviour {
                     }
                     
                 }
-                else if (obstacleType > 5 && obstacleType <= 10)
+                else if (obstacleType == 1)
                 {
                     StartCoroutine("SpawnTunnel");
                 }
             }
-           /* if (changeSpawnCounter == true)
+            if (pointManager.GetPoints() >= points + 10)
             {
-                StartCoroutine("SpawnCounter");
-            }*/
-            if (pointManager.GetPoints() >= points + 5)
-            {
-               
                 points = pointManager.GetPoints();
-                obstacleType = Random.Range(0, 10);
-                Debug.Log("change obstacle: "+obstacleType);
+                var ob = Random.Range(0f, 1f);
+                obstacleType = Mathf.Round(ob);
+                Debug.Log(ob+" change obstacle: " + obstacleType);
             }
-
         }
-
     }
 
     IEnumerator SpawnBasic()
     {
-       // if (FindByTag("Tunnel"))
-       // {
-            spawned = false;
+            toSpawn = false;
             seconds = Random.Range(.3f, .6f);
-            side = Random.Range(0, 11);
+            side = Mathf.Round(Random.RandomRange(0f,1f));
             yield return new WaitForSeconds(seconds);
-            if (side >= 0 && side <= 5)
+            if (side ==0)
             {
-                Instantiate(basicObstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y), Quaternion.identity);
-                //  basicObstacle.GetComponent<Rigidbody2D>().gravityScale = Random.Range(5, 10);
+                Instantiate(basicObstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
             }
             else
             {
-                Instantiate(basicObstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
-                //  basicObstacle.GetComponent<Rigidbody2D>().gravityScale = Random.Range(5, 10);
+                Instantiate(basicObstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y), Quaternion.identity);
             }
-            spawned = true;
-       // }
+            toSpawn = true;
     }
 
     IEnumerator SpawnTunnel()
     {
 
-        spawned = false;
+        toSpawn = false;
         seconds = Random.Range(1, 3);
-        side = Random.Range(0, 10);
+        side = Mathf.Round(Random.RandomRange(0f, 1f));
         Debug.Log("side "+side);
         yield return new WaitForSeconds(seconds);
-        if (side>=0&&side<=5)
+        if (side==0)
         {
             Instantiate(tunnelLeftObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
-           // basicObstacle.GetComponent<Rigidbody2D>().gravityScale = Random.Range(5, 10);
         }
-        else if(side >=5&&side<=10)
+        else
         {
             Instantiate(tunnelRightObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
-            //basicObstacle.GetComponent<Rigidbody2D>().gravityScale = Random.Range(5, 10);
         }
-        spawned = true;
+        toSpawn = true;
     }
 
     private bool FindByTag(string tag)
@@ -132,14 +119,11 @@ public class SpawnManagerScript : MonoBehaviour {
                 Debug.Log("tru");
                 return true;
             }
-                
-
             else
             {
                 Debug.Log("fals");
                 return false;
-            }
-                
+            }  
         }
         catch
         {
@@ -147,26 +131,4 @@ public class SpawnManagerScript : MonoBehaviour {
             return false;
         }
     }
-   /* IEnumerator SpawnCounter()
-    {
-        Debug.Log("spawnCounter");
-        changeSpawnCounter = false;
-        float counterSeconds=0;
-        counterSeconds = Random.Range(1, 3);
-        yield return new WaitForSeconds(counterSeconds);
-        Debug.Log("afterCounter");
-        if (spawnBasic == true)
-        {
-            Debug.Log("spawnTunnel=true");
-            spawnBasic = false;
-            spawnTunnel = true;
-        }
-       /* else if (spawnTunnel == true)
-        {
-            Debug.Log("spawnBasic=true");
-            spawnTunnel = false;
-            spawnBasic = true;
-        }
-        changeSpawnCounter = true;
-    }*/
 }

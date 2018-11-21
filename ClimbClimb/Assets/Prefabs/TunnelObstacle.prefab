@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4857843933094680}
   - component: {fileID: 50664963722454618}
-  - component: {fileID: 114469374171179330}
+  - component: {fileID: 114881908547646714}
   m_Layer: 0
   m_Name: TunnelObstacle
   m_TagString: Tunnel
@@ -71,8 +71,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1812016753158862}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.85, y: -0.7, z: 0.12323689}
-  m_LocalScale: {x: 8, y: 1, z: 1}
+  m_LocalPosition: {x: -4.75, y: -1, z: 0}
+  m_LocalScale: {x: 23, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4857843933094680}
   m_RootOrder: 1
@@ -84,8 +84,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1949053611478802}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.85, y: 0.7, z: 0.12323689}
-  m_LocalScale: {x: 8, y: 1, z: 1}
+  m_LocalPosition: {x: 4.75, y: 1, z: 0}
+  m_LocalScale: {x: 23, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4857843933094680}
   m_RootOrder: 0
@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1043654610705170}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1196083, z: -0.12323689}
+  m_LocalPosition: {x: 0, y: 6.9166064, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4672192507314158}
@@ -215,7 +215,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &114469374171179330
+--- !u!114 &114881908547646714
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,11 +223,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1043654610705170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65c1133f7ff6ad64b839a43c9ebd100c, type: 3}
+  m_Script: {fileID: 11500000, guid: 286b1ce3292489d479556ae206da2818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {fileID: 0}
-  speed: 0
 --- !u!212 &212232449506076126
 SpriteRenderer:
   m_ObjectHideFlags: 1
