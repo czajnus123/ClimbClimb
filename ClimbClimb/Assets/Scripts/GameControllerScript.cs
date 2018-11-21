@@ -7,27 +7,20 @@ public class GameControllerScript : MonoBehaviour {
 
     public GameObject playerPrefab;
     public GameObject spawnPlayerPos;
-    public GameObject spawnRight;
-    public GameObject spawnLeft;
-
-    public GameObject obstacle;
 
     public bool rightSide;
     public bool gameOver;
     public bool endMenu;
 
-    bool spawned;
+   // bool spawned;
     float seconds;
     int side;
 
 	// Use this for initialization
 	void Start () {
-        spawned = true;
         rightSide = true;
         gameOver = true;
         endMenu = false;
-
-        //GameObject.Find("PointCounter").GetComponent<TextMesh>().text="Dupa";
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity); 
 
@@ -44,34 +37,8 @@ public class GameControllerScript : MonoBehaviour {
                 GameObject.Find("TapToPlay").SetActive(false);
             }
         }
-
-        if (gameOver == false)
-        {
-            if (spawned == true)
-            {
-                StartCoroutine("Spawn");
-            }
-        }
 		
 	}
-
-    IEnumerator Spawn()
-    {
-        spawned = false;
-        seconds = Random.Range(.5f, 1);
-        yield return new WaitForSeconds(seconds);
-        if (rightSide == true)
-        {
-            Instantiate(obstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y),Quaternion.identity);
-            obstacle.GetComponent<Rigidbody2D>().gravityScale = Random.Range(5, 10);
-        }
-        else
-        {
-            Instantiate(obstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
-            obstacle.GetComponent<Rigidbody2D>().gravityScale = Random.Range(5, 10);
-        }
-        spawned = true;
-    }
 
     public void SetGameOver(bool over)
     {
@@ -86,5 +53,14 @@ public class GameControllerScript : MonoBehaviour {
     public void SetEndMenu(bool endMenubool)
     {
         endMenu = endMenubool;
+    }
+    public bool GetEndMenuBool()
+    {
+
+        return endMenu;
+    }
+    public bool GetRightSideBool()
+    {
+        return rightSide;
     }
 }
