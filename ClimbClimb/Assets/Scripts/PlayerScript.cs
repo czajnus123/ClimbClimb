@@ -6,8 +6,8 @@ public class PlayerScript : MonoBehaviour {
 
     private GameObject posRight;
     private GameObject posLeft;
-   // private GameObject gameController;
     private GameControllerScript gameController;
+    private SaveScript saveManager;
 
     private bool rightSide;
     private bool left;
@@ -17,6 +17,7 @@ public class PlayerScript : MonoBehaviour {
 	void Start () {
         rightSide = GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide;
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
+        saveManager = GameObject.Find("SaveManager").GetComponent<SaveScript>();
         left = false;
         tapped = false;
 
@@ -72,6 +73,7 @@ public class PlayerScript : MonoBehaviour {
         GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
         gameController.SetGameOver(true);
         gameController.SetEndMenu(true);
+        saveManager.Save();
         Destroy(gameObject);
         
 

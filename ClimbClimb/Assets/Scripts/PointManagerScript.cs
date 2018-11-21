@@ -5,6 +5,7 @@ using UnityEngine;
 public class PointManagerScript : MonoBehaviour {
 
     //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro scoreText
+    //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro hiScoreText
 
     public float scoreCount;
     public float hiScoreCount;
@@ -35,6 +36,7 @@ public class PointManagerScript : MonoBehaviour {
             }
 
             //W tym miejscu zrobic staly update textu od punktow: scoreText.text=scoreCount.Mathf.Round(scoreCount)
+            //W tym miejscu zrobic staly update textu od hiScore: hiScoreText.text=hiscoreCount.Mathf.Round(hiScoreCount)
 
             if (gameController.GetGameOver() == true && gameController.GetEndMenuBool() == true)
             {
@@ -43,4 +45,13 @@ public class PointManagerScript : MonoBehaviour {
         }
 		
 	}
+
+    public float GetHiScore()
+    {
+        return hiScoreCount;
+    }
+    public void SetHiScore(float hiScore)
+    {
+        hiScoreCount = hiScore;
+    }
 }

@@ -12,6 +12,8 @@ public class GameControllerScript : MonoBehaviour {
     public bool gameOver;
     public bool endMenu;
 
+    public float skin;
+
    // bool spawned;
     float seconds;
     int side;
