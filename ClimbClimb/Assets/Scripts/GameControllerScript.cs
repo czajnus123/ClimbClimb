@@ -30,15 +30,15 @@ public class GameControllerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (Input.touchCount > 0 && gameOver == true && endMenu==false)
-        {
-            gameOver = false;
-            if (GameObject.Find("TapToPlay"))
+            
+            if (Input.touchCount > 0&&gameOver == true && endMenu == false)
             {
-                GameObject.Find("TapToPlay").SetActive(false);
+                gameOver = false;
+                if (GameObject.Find("TapToPlay"))
+                {
+                    GameObject.Find("TapToPlay").SetActive(false);
+                }
             }
-        }
 		
 	}
 
