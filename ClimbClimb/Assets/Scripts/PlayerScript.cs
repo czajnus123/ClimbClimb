@@ -41,7 +41,6 @@ public class PlayerScript : MonoBehaviour {
                  
                 if (touch.phase == TouchPhase.Began)
                 {
-                    Debug.Log("tapped");
                     tapped = true;
                 }
                 if (tapped == true)
@@ -79,6 +78,15 @@ public class PlayerScript : MonoBehaviour {
         gameController.SetGameOver(true);
         gameController.SetEndMenu(true);
         saveManager.Save();
+        try
+        {
+            Destroy(collision.transform.parent.gameObject);
+        }
+        catch
+        {
+            Destroy(collision.gameObject);
+        }
+
         Destroy(gameObject);
         
 

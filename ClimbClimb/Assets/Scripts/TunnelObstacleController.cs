@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleScript : MonoBehaviour {
+public class TunnelObstacleController : MonoBehaviour {
 
+    public GameObject direction;
     private GameControllerScript gameController;
+
+    public float speed;
 
 	// Use this for initialization
 	void Start () {
 
+        speed = 1;
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
 		
 	}
@@ -18,11 +22,19 @@ public class ObstacleScript : MonoBehaviour {
 
         if (gameController.GetGameOver() == false)
         {
-            transform.Translate(Vector3.down * 7 * Time.deltaTime);
+            transform.Translate(Vector3.down * 4 * Time.deltaTime);
         }
         else
         {
-            Destroy(gameObject);
+            try
+            {
+                Destroy(transform.parent.gameObject);
+            }
+            catch
+            {
+                Destroy(gameObject);
+            }
+
         }
 
     }

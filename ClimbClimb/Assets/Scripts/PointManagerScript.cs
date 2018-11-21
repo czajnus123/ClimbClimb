@@ -46,6 +46,11 @@ public class PointManagerScript : MonoBehaviour {
 		
 	}
 
+    public float GetPoints()
+    {
+        return scoreCount;
+    }
+
     public float GetHiScore()
     {
         return hiScoreCount;
