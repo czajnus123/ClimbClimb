@@ -116,12 +116,12 @@ public class SpawnManagerScript : MonoBehaviour {
             gm=GameObject.FindGameObjectsWithTag(tag);
             if (gm.Length > 0)
             {
-                Debug.Log("tru");
+             //   Debug.Log("tru");
                 return true;
             }
             else
             {
-                Debug.Log("fals");
+              //  Debug.Log("fals");
                 return false;
             }  
         }

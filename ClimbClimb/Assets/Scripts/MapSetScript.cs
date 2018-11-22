@@ -32,8 +32,7 @@ public class MapSetScript : MonoBehaviour {
 
         worldScreenHeight = GameObject.Find("Main Camera").GetComponent<Camera>().orthographicSize * 2.0f;
         worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
-
-        mapRenderer.transform.localScale = new Vector3(worldScreenWidth /unitWidth, worldScreenHeight/unitHeight);
+        mapRenderer.transform.localScale = new Vector3(worldScreenWidth /unitWidth/gameObject.transform.localScale.x, worldScreenHeight/unitHeight/gameObject.transform.localScale.y);
     }
 
     void fitHeight()

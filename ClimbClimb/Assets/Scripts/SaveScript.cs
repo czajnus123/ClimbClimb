@@ -30,7 +30,8 @@ public class SaveScript : MonoBehaviour {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
         PlayerDataClass data = new PlayerDataClass();
-        data.hiScore = pointManager.GetHiScore();
+
+        data.hiScore = pointManager.GetHiScore();    //zapis do pliku. Podmienia hiscore w pliku na hiscore aktualny w grze
 
         bf.Serialize(file, data);
         file.Close();
@@ -45,8 +46,8 @@ public class SaveScript : MonoBehaviour {
             PlayerDataClass data = (PlayerDataClass)bf.Deserialize(file);
             file.Close();
 
-            hiScore = data.hiScore;
-            pointManager.SetHiScore(hiScore);
+            hiScore = data.hiScore;            //pobiera hiscore z pliku i przypisuje do lokalnej zmiennej
+            pointManager.SetHiScore(hiScore);  //ustawia globalna zmienna hiscore na hiscore z lokalnej zmiennej
            // skin = data.skin;
         }
     }
