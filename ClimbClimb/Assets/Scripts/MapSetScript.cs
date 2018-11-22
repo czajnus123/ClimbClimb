@@ -3,21 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MapSetScript : MonoBehaviour {
-
-
-
-    GameObject camera;
-
+    
 	// Use this for initialization
 	void Start () {
         fitWidth();
        // fitHeight();
-
     }
 	
 	// Update is called once per frame
 	void Update () {
-
         fitWidth();
     }
 
@@ -29,7 +23,7 @@ public class MapSetScript : MonoBehaviour {
 
         float unitWidth;
         float unitHeight;
-        mapRenderer = this.gameObject.GetComponent<SpriteRenderer>();
+        mapRenderer = GameObject.Find("Background").GetComponent<SpriteRenderer>();
         mapRenderer.sprite.texture.filterMode = FilterMode.Point;
 
         Sprite s = mapRenderer.sprite;

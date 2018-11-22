@@ -6,6 +6,7 @@ using TMPro;
 public class GameControllerScript : MonoBehaviour {
 
     public GameObject playerPrefab;
+    public GameObject oponentPrefab;
     public GameObject spawnPlayerPos;
 
     public bool rightSide;
@@ -24,9 +25,9 @@ public class GameControllerScript : MonoBehaviour {
         gameOver = true;
         endMenu = false;
 
-        Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity); 
-
-	}
+        Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
+        Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(50,100)), Quaternion.identity);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,6 +38,7 @@ public class GameControllerScript : MonoBehaviour {
                 if (GameObject.Find("TapToPlay"))
                 {
                     GameObject.Find("TapToPlay").SetActive(false);
+                    GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
                 }
             }
 		
