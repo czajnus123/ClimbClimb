@@ -7,7 +7,7 @@ public class PointManagerScript : MonoBehaviour {
 
     //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro scoreText
     //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro hiScoreText
-    [SerializeField] public TextMeshProUGUI textScore;
+    public TextMeshProUGUI textScore;
 
     public float scoreCount; // aktualny wynik
     public float hiScoreCount;
@@ -24,8 +24,6 @@ public class PointManagerScript : MonoBehaviour {
 
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
 
-        //  wartość początkowa "score"
-        //textScore.text = "0";
 	}
 	
 	// Update is called once per frame
@@ -42,9 +40,8 @@ public class PointManagerScript : MonoBehaviour {
                 hiScoreCount = scoreCount;
             }
 
-            //W tym miejscu zrobic staly update textu od punktow: scoreText.text=scoreCount.Mathf.Round(scoreCount)
-            //textScore.text = Mathf.Round(scoreCount).ToString();
-            textScore.text = temp.ToString();
+            textScore.text = Mathf.Round(scoreCount).ToString();
+
             //W tym miejscu zrobic staly update textu od hiScore: hiScoreText.text=hiscoreCount.Mathf.Round(hiScoreCount)
 
             if (gameController.GetGameOver() == true && gameController.GetEndMenuBool() == true)
