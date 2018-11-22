@@ -26,7 +26,7 @@ public class GameControllerScript : MonoBehaviour {
         endMenu = false;
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
-        Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(50,100)), Quaternion.identity);
+        Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
     }
 	
 	// Update is called once per frame
