@@ -27,6 +27,8 @@ public class SaveScript : MonoBehaviour {
 
     public void Save()
     {
+        PlayerPrefs.SetFloat("highscore", pointManager.GetHiScore());
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
         PlayerDataClass data = new PlayerDataClass();
