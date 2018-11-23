@@ -6,10 +6,12 @@ public class SpawnManagerScript : MonoBehaviour {
 
     private float obstacleType;
     private float seconds;
+    private float coinSeconds;
     private float points;
     private float side;
 
     private bool toSpawn;
+    private bool toSpawnCoin;
     private bool changeSpawnCounter;
     private bool spawnBasic;
     private bool spawnTunnel;
@@ -21,6 +23,7 @@ public class SpawnManagerScript : MonoBehaviour {
     public GameObject basicObstacle;
     public GameObject tunnelRightObstacle;
     public GameObject tunnelLeftObstacle;
+    public GameObject coin;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
@@ -36,6 +39,7 @@ public class SpawnManagerScript : MonoBehaviour {
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
 
         toSpawn = true;
+        toSpawnCoin = true;
         spawnBasic = true;
         spawnTunnel = false;
         changeSpawnCounter = true;
@@ -61,6 +65,10 @@ public class SpawnManagerScript : MonoBehaviour {
                 {
                     StartCoroutine("SpawnTunnel");
                 }
+            }
+            if (toSpawnCoin == true)
+            {
+                StartCoroutine("SpawnCoin");
             }
             if (pointManager.GetPoints() >= points + 10)
             {
@@ -106,6 +114,15 @@ public class SpawnManagerScript : MonoBehaviour {
             Instantiate(tunnelRightObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
         }
         toSpawn = true;
+    }
+
+    IEnumerator SpawnCoin()
+    {
+        toSpawnCoin = false;
+        coinSeconds = Random.RandomRange(10, 20);
+        yield return new WaitForSeconds(coinSeconds);
+        Instantiate(coin, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
+        toSpawnCoin = true;
     }
 
     private bool FindByTag(string tag)
