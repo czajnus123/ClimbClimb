@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class SpawnManagerScript : MonoBehaviour {
 
-    private float obstacleType;   //if 0 basic, else if 1 tunnel
-
+    private float obstacleType;
     private float seconds;
     private float points;
+    private float side;
 
     private bool toSpawn;
     private bool changeSpawnCounter;
     private bool spawnBasic;
     private bool spawnTunnel;
-    float side; //if 0 - left, else if 1 - right 
+
 
     public GameObject spawnRight;
     public GameObject spawnLeft;

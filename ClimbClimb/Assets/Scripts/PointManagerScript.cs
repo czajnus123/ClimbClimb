@@ -8,10 +8,13 @@ public class PointManagerScript : MonoBehaviour {
     //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro scoreText
     //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro hiScoreText
     public TextMeshProUGUI textScore;
+    public TextMeshProUGUI coinText;
 
     public float scoreCount; // aktualny wynik
     public float hiScoreCount;
     public float pointsPerSecond;
+
+    private int coinCoint;
 
     public bool scoreIncreasing;
 
@@ -22,6 +25,7 @@ public class PointManagerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        coinCoint = 0;
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
 
 	}
@@ -41,6 +45,7 @@ public class PointManagerScript : MonoBehaviour {
             }
 
             textScore.text = Mathf.Round(scoreCount).ToString();
+            coinText.text = gameController.GetCoinAmount().ToString();
 
             //W tym miejscu zrobic staly update textu od hiScore: hiScoreText.text=hiscoreCount.Mathf.Round(hiScoreCount)
 

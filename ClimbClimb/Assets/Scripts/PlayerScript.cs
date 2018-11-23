@@ -74,22 +74,20 @@ public class PlayerScript : MonoBehaviour {
 	}
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
-        gameController.SetGameOver(true);
-        gameController.SetEndMenu(true);
-        saveManager.Save();
-        try
-        {
-            Destroy(collision.transform.parent.gameObject);
-        }
-        catch
-        {
-            Destroy(collision.gameObject);
-        }
+            GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
+            gameController.SetGameOver(true);
+            gameController.SetEndMenu(true);
+            saveManager.Save();
+            try
+            {
+                Destroy(collision.transform.parent.gameObject);
+            }
+            catch
+            {
+                Destroy(collision.gameObject);
+            }
 
-        Destroy(gameObject);
-        
-
+            Destroy(gameObject);
 
     }
 }

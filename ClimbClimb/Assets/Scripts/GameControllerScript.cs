@@ -8,12 +8,20 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject playerPrefab;
     public GameObject oponentPrefab;
     public GameObject spawnPlayerPos;
+    public GameObject posLeft;
+    public GameObject leftWall;
+    public GameObject rightWall;
+    public GameObject spawnObstacleRight;
+    public GameObject spawnObstacleLeft;
 
     public bool rightSide;
     public bool gameOver;
     public bool endMenu;
 
     public float skin;
+
+    private int coinCount;
+    private int spawnCoinCounter;
 
    // bool spawned;
     float seconds;
@@ -24,6 +32,16 @@ public class GameControllerScript : MonoBehaviour {
         rightSide = true;
         gameOver = true;
         endMenu = false;
+        coinCount = 0;
+
+        posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/2
+            + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2),posLeft.transform.position.y);
+
+        spawnPlayerPos.transform.position= new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
+            - playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2), spawnPlayerPos.transform.position.y);
+
+        spawnObstacleLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnObstacleLeft.transform.position.y);
+        spawnObstacleRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnObstacleRight.transform.position.y);
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
@@ -68,5 +86,24 @@ public class GameControllerScript : MonoBehaviour {
     public bool GetRightSideBool()
     {
         return rightSide;
+    }
+    public int GetCoinAmount()
+    {
+        return coinCount;
+    }
+    public void AddCoin(int coin)
+    {
+        coinCount += coin;
+    }
+    public int GetSpawnCoinCounter()
+    {
+        return spawnCoinCounter;
+    }
+    public void SetSpawnCoinCounter()
+    {
+        if (spawnCoinCounter > 9)
+            spawnCoinCounter = 0;
+
+        spawnCoinCounter++;
     }
 }
