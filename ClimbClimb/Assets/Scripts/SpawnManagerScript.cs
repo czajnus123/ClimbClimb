@@ -89,11 +89,11 @@ public class SpawnManagerScript : MonoBehaviour {
             if (side ==0)
             {
                 Instantiate(basicObstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
-            }
+        }
             else
             {
                 Instantiate(basicObstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y), Quaternion.identity);
-            }
+        }
             toSpawn = true;
     }
 

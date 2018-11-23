@@ -12,6 +12,7 @@ public class ObstacleScript : MonoBehaviour {
         if (gameObject.tag == "Obstacle") speed = 7f;
         else if (gameObject.tag == "Tunnel") speed = 4f;
         else if (gameObject.tag == "Coin") speed = 2f;
+
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
 
         gameController.SetSpawnCoinCounter();
@@ -35,11 +36,12 @@ public class ObstacleScript : MonoBehaviour {
         }
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (gameObject.tag=="Coin" && collision.gameObject.tag == "Player")
+        if (gameObject.tag == "Coin" && collision.gameObject.tag == "Player")
         {
-            gameController.AddCoin(1);
+            PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins", 0) + 1);
             Destroy(gameObject);
         }
     }

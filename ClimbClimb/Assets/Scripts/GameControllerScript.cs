@@ -29,6 +29,9 @@ public class GameControllerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        //PlayerPrefs.SetInt("coins", 0);
+        //PlayerPrefs.SetInt("position", 1000);
+        //PlayerPrefs.SetFloat("highscore",0);
         rightSide = true;
         gameOver = true;
         endMenu = false;
