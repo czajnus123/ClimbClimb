@@ -5,13 +5,16 @@ using UnityEngine;
 public class EndLineScript : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        try
+        if (collision.gameObject.tag != "Lightning")
         {
-            Destroy(collision.transform.parent.gameObject);
-        }
-        catch
-        {
-            Destroy(collision.gameObject);
+            try
+            {
+                Destroy(collision.transform.parent.gameObject);
+            }
+            catch
+            {
+                Destroy(collision.gameObject);
+            }
         }
 
     }

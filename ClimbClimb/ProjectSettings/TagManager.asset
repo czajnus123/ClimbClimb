@@ -8,6 +8,7 @@ TagManager:
   - Tunnel
   - Obstacle
   - Coin
+  - Lightning
   layers:
   - Default
   - TransparentFX
