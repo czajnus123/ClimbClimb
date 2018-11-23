@@ -24,9 +24,13 @@ public class SpawnManagerScript : MonoBehaviour {
     public GameObject tunnelRightObstacle;
     public GameObject tunnelLeftObstacle;
     public GameObject coin;
+    public GameObject spawnLightLeftPos;
+    public GameObject spawnLightRightPos;
+    public GameObject lightningPrefab;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
+    private PlayerScript playerScript;
     
 
 
@@ -37,6 +41,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
+        //playerScript = GameObject.Find("Player(Clone)").GetComponent<PlayerScript>();
 
         toSpawn = true;
         toSpawnCoin = true;
@@ -63,7 +68,18 @@ public class SpawnManagerScript : MonoBehaviour {
                 }
                 else if (obstacleType == 1)
                 {
-                    StartCoroutine("SpawnTunnel");
+
+                        StartCoroutine("SpawnTunnel");
+
+                }
+
+                else if (obstacleType == 2)
+                {
+                if (!FindByTag("Tunnel") && !FindByTag("Obstacle"))
+                    {
+                    
+                    StartCoroutine("SpawnLightning");
+                    }
                 }
             }
             if (toSpawnCoin == true)
@@ -73,7 +89,7 @@ public class SpawnManagerScript : MonoBehaviour {
             if (pointManager.GetPoints() >= points + 10)
             {
                 points = pointManager.GetPoints();
-                var ob = Random.Range(0f, 1f);
+                var ob = Random.Range(0f, 2f);
                 obstacleType = Mathf.Round(ob);
                 Debug.Log(ob+" change obstacle: " + obstacleType);
             }
@@ -125,6 +141,24 @@ public class SpawnManagerScript : MonoBehaviour {
         toSpawnCoin = true;
     }
 
+    IEnumerator SpawnLightning()
+    {
+        toSpawn = false;
+        seconds = Random.RandomRange(.8f, 1.5f);
+        yield return new WaitForSeconds(seconds);
+        if (gameController.GetRightSideBool() == true)
+        {
+            Instantiate(lightningPrefab, new Vector2(spawnLightRightPos.transform.position.x, spawnLightRightPos.transform.position.y), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(lightningPrefab, new Vector2(spawnLightLeftPos.transform.position.x, spawnLightLeftPos.transform.position.y), Quaternion.identity);
+        }
+        toSpawn = true;
+
+
+    }
+
     private bool FindByTag(string tag)
     {
         try
@@ -133,12 +167,10 @@ public class SpawnManagerScript : MonoBehaviour {
             gm=GameObject.FindGameObjectsWithTag(tag);
             if (gm.Length > 0)
             {
-             //   Debug.Log("tru");
                 return true;
             }
             else
             {
-              //  Debug.Log("fals");
                 return false;
             }  
         }
