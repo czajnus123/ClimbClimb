@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour {
 
     private bool rightSide;
     private bool left;
+    private bool leftSlam;
+    private bool rightSlam;
     bool tapped;
 
 	// Use this for initialization
@@ -21,6 +23,8 @@ public class PlayerScript : MonoBehaviour {
         saveManager = GameObject.Find("SaveManager").GetComponent<SaveScript>();
         left = false;
         tapped = false;
+        leftSlam = false;
+        rightSlam = false;
 
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
@@ -47,14 +51,34 @@ public class PlayerScript : MonoBehaviour {
                 {
                     if (rightSide == true)
                     {
-                        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, posLeft.transform.position, 2);
-                        GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = false;
+                    gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, posLeft.transform.position, 2);
+                    
+                    if (gameObject.transform.position.x == posLeft.transform.position.x)
+                    {
+                        gameObject.transform.Find("LeftSlam").gameObject.SetActive(true);
+                        Debug.Log("LeftSlam");
+                        if (leftSlam == false)
+                        {
+                            StartCoroutine("LeftSlamCounter");
+                        }
+                    }
+
+                    GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = false;
                     }
                     else if (rightSide == false)
                     {
-                        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, posRight.transform.position, 2);
+                    gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, posRight.transform.position, 2);
+                    
+                    if (gameObject.transform.position.x == posRight.transform.position.x)
+                    {
+                        gameObject.transform.Find("RightSlam").gameObject.SetActive(true);
+                        if (rightSlam == false)
+                        {
+                            StartCoroutine("RightSlamCounter");
+                        }
+                    }
 
-                        GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = true;
+                    GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = true;
                     }
                     if (gameObject.transform.position == posLeft.transform.position)
                     {
@@ -72,6 +96,24 @@ public class PlayerScript : MonoBehaviour {
         
 		
 	}
+
+    IEnumerator LeftSlamCounter()
+    {
+        leftSlam = true;
+        yield return new WaitForSeconds(.1f);
+        gameObject.transform.Find("LeftSlam").gameObject.SetActive(false);
+        leftSlam = false;
+
+    }
+
+    IEnumerator RightSlamCounter()
+    {
+        rightSlam = true;
+        yield return new WaitForSeconds(.1f);
+        gameObject.transform.Find("RightSlam").gameObject.SetActive(false);
+        rightSlam = false;
+
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
             GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
