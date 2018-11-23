@@ -417,9 +417,10 @@ GameObject:
   - component: {fileID: 61990968620128776}
   - component: {fileID: 50703019383445198}
   - component: {fileID: 96967850135787074}
+  - component: {fileID: 114708903481845238}
   m_Layer: 0
   m_Name: LightningObstacle
-  m_TagString: Player
+  m_TagString: Lightning
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -654,7 +655,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1920708222011746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.98, y: 4.42, z: 0}
+  m_LocalPosition: {x: -1.2381473, y: -1.180973, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4576899610535506}
@@ -849,7 +850,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.48229814}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -860,7 +861,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.5, y: 1.4645963}
   m_EdgeRadius: 0
 --- !u!96 &96967850135787074
 TrailRenderer:
@@ -896,10 +897,10 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000, type: 0}
-  m_SortingLayerID: -1179251521
-  m_SortingLayer: 2
+  m_SortingLayerID: 850061269
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.2
@@ -908,7 +909,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -916,8 +917,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.05343326
-        value: 0
+        time: 0.035332523
+        value: 1
         inSlope: -1.2469653
         outSlope: -1.2469653
         tangentMode: 0
@@ -925,8 +926,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.10322799
-        value: 0.9818145
+        time: 0.08060302
+        value: 0.4707042
         inSlope: -6.7234545
         outSlope: -6.7234545
         tangentMode: 0
@@ -1099,6 +1100,18 @@ TrailRenderer:
   m_MinVertexDistance: 0
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &114708903481845238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920708222011746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d545f5ad2feecc74a9a747152c7f4edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
 --- !u!120 &120061508073288620
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -3196,11 +3209,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1179251521
-  m_SortingLayer: 2
+  m_SortingLayerID: 850061269
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ab470763202ba354c90e090030cca3dc, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.98080873, a: 1}
+  m_Color: {r: 0, g: 0.7692599, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

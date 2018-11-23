@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour {
     private SaveScript saveManager;
     private Touch touch;
 
-    private bool rightSide;
+    public bool rightSide;
     private bool left;
     private bool leftSlam;
     private bool rightSlam;
@@ -56,7 +56,6 @@ public class PlayerScript : MonoBehaviour {
                     if (gameObject.transform.position.x == posLeft.transform.position.x)
                     {
                         gameObject.transform.Find("LeftSlam").gameObject.SetActive(true);
-                        Debug.Log("LeftSlam");
                         if (leftSlam == false)
                         {
                             StartCoroutine("LeftSlamCounter");
@@ -131,5 +130,10 @@ public class PlayerScript : MonoBehaviour {
 
             Destroy(gameObject);
 
+    }
+
+    public bool GetRightSidePlayer()
+    {
+        return rightSide;
     }
 }

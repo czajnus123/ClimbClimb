@@ -13,6 +13,8 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject rightWall;
     public GameObject spawnObstacleRight;
     public GameObject spawnObstacleLeft;
+    public GameObject spawnLightLeft;
+    public GameObject spawnLightRight;
 
     public bool rightSide;
     public bool gameOver;
@@ -42,6 +44,8 @@ public class GameControllerScript : MonoBehaviour {
 
         spawnObstacleLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnObstacleLeft.transform.position.y);
         spawnObstacleRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnObstacleRight.transform.position.y);
+        spawnLightLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnLightLeft.transform.position.y);
+        spawnLightRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnLightRight.transform.position.y);
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
