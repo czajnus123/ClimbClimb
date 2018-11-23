@@ -7,6 +7,9 @@ public class AIScript : MonoBehaviour {
     private GameObject posRight;
     private GameObject posLeft;
     private GameControllerScript gameController;
+    private GameObject player;
+
+    private bool wyprzedzoned = false;
 
     private float speed = 0;
     public void SetSpeed(float value)
@@ -19,6 +22,7 @@ public class AIScript : MonoBehaviour {
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
@@ -26,6 +30,11 @@ public class AIScript : MonoBehaviour {
         if (gameController.GetGameOver() == false)
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
+            if (gameObject.transform.position.y < player.GetComponent<Transform>().transform.position.y && !wyprzedzoned)
+            {
+                wyprzedzoned = true;
+                PlayerPrefs.SetInt("position", PlayerPrefs.GetInt("position", 1000) - 1);
+            }
         }
         else if(gameController.GetGameOver() && speed>0)
         {
@@ -51,5 +60,7 @@ public class AIScript : MonoBehaviour {
     {
         if (collision.gameObject.tag != "Player")
             change_side();
+        if (collision.gameObject.name == "End")
+            Destroy(gameObject);
     }
 }

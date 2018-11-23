@@ -7,8 +7,9 @@ public class PointManagerScript : MonoBehaviour {
 
     //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro scoreText
     //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro hiScoreText
-    public TextMeshProUGUI textScore;
+    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI coinText;
+    public TextMeshProUGUI positionText;
 
     public float scoreCount; // aktualny wynik
     public float hiScoreCount;
@@ -43,15 +44,16 @@ public class PointManagerScript : MonoBehaviour {
             {
                 hiScoreCount = scoreCount;
             }
-
-            textScore.text = Mathf.Round(scoreCount).ToString();
-            coinText.text = gameController.GetCoinAmount().ToString();
-
+            scoreText.text = Mathf.Round(scoreCount).ToString();
+            //coinText.text = gameController.GetCoinAmount().ToString();
+            coinText.text = PlayerPrefs.GetInt("coins", 0).ToString();
+            positionText.text = "#" + PlayerPrefs.GetInt("position", 1000).ToString();
             //W tym miejscu zrobic staly update textu od hiScore: hiScoreText.text=hiscoreCount.Mathf.Round(hiScoreCount)
 
             if (gameController.GetGameOver() == true && gameController.GetEndMenuBool() == true)
             {
                 //Zapis highscore do pliku
+                PlayerPrefs.SetFloat("highscore", hiScoreCount);
             }
         }
 		

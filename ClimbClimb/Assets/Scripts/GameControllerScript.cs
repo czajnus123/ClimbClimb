@@ -33,7 +33,7 @@ public class GameControllerScript : MonoBehaviour {
         gameOver = true;
         endMenu = false;
         coinCount = 0;
-
+        //PlayerPrefs.SetInt("position", 1000);
         posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/2
             + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2),posLeft.transform.position.y);
 
@@ -87,14 +87,14 @@ public class GameControllerScript : MonoBehaviour {
     {
         return rightSide;
     }
-    public int GetCoinAmount()
+    /*public int GetCoinAmount()
     {
         return coinCount;
     }
     public void AddCoin(int coin)
     {
         coinCount += coin;
-    }
+    }*/
     public int GetSpawnCoinCounter()
     {
         return spawnCoinCounter;

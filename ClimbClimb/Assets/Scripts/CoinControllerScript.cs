@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinControllerScript : MonoBehaviour {
 
-    private GameControllerScript gameController;
+    /*private GameControllerScript gameController;
 
 	// Use this for initialization
 	void Start () {
@@ -17,12 +17,13 @@ public class CoinControllerScript : MonoBehaviour {
 	void Update () {
 		
 	}
-
+    */
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            gameController.AddCoin(1);
+            //gameController.AddCoin(1);
+            PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins", 0) + 1);
             Destroy(gameObject);
         }
     }
