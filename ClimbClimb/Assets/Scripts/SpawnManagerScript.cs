@@ -144,7 +144,7 @@ public class SpawnManagerScript : MonoBehaviour {
     IEnumerator SpawnLightning()
     {
         toSpawn = false;
-        seconds = Random.RandomRange(.5f, 1f);
+        seconds = Random.RandomRange(.8f, 1.5f);
         yield return new WaitForSeconds(seconds);
         if (gameController.GetRightSideBool() == true)
         {
