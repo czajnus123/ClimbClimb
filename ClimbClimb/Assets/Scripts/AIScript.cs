@@ -23,6 +23,7 @@ public class AIScript : MonoBehaviour {
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
+        GetComponent<SpriteRenderer>().sprite = player.GetComponent<PlayerScript>().skins[Random.Range(0, player.GetComponent<PlayerScript>().skins.Length - 1)];
     }
 
     private void Update()

@@ -16,8 +16,12 @@ public class PlayerScript : MonoBehaviour {
     private bool rightSlam;
     bool tapped;
 
+    public Sprite[] skins;
+    public Material[] trails;
+
 	// Use this for initialization
 	void Start () {
+        
         rightSide = GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide;
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
         saveManager = GameObject.Find("SaveManager").GetComponent<SaveScript>();
@@ -29,8 +33,11 @@ public class PlayerScript : MonoBehaviour {
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
 
-		
-	}
+        gameController.Skin = Random.Range(0, 9);
+        GetComponent<SpriteRenderer>().sprite = skins[gameController.Skin];
+        //GetComponent<TrailRenderer>().material = trails[gameController.Skin];
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

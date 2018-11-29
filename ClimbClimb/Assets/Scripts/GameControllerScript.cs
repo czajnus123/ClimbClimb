@@ -20,7 +20,12 @@ public class GameControllerScript : MonoBehaviour {
     public bool gameOver;
     public bool endMenu;
 
-    public float skin;
+    private int skin =0;
+    public int Skin
+    {
+        get { return skin; }
+        set { skin = value; }
+    }
 
     private int coinCount;
     private int spawnCoinCounter;

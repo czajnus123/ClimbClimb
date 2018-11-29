@@ -2173,7 +2173,6 @@ MonoBehaviour:
   rightSide: 0
   gameOver: 0
   endMenu: 0
-  skin: 0
 --- !u!4 &1359569003
 Transform:
   m_ObjectHideFlags: 0
