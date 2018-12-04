@@ -40,9 +40,9 @@ public class ObstacleScript : MonoBehaviour {
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
         }
-        else
+        else if (gameController.GetDeathCount()>1)
         {
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
     }
 
@@ -52,7 +52,9 @@ public class ObstacleScript : MonoBehaviour {
         if (gameObject.tag == "Coin" && collision.gameObject.tag == "Player")
         {
             PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins", 0) + 1);
+
             Destroy(gameObject);
         }
+
     }
 }

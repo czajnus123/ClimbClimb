@@ -29,6 +29,7 @@ public class GameControllerScript : MonoBehaviour {
 
     private int coinCount;
     private int spawnCoinCounter;
+    private int deathCount;
 
    // bool spawned;
     float seconds;
@@ -43,6 +44,7 @@ public class GameControllerScript : MonoBehaviour {
         gameOver = true;
         endMenu = false;
         coinCount = 0;
+        deathCount = 0;
 
         posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/2
             + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2),posLeft.transform.position.y);
@@ -119,5 +121,14 @@ public class GameControllerScript : MonoBehaviour {
             spawnCoinCounter = 0;
 
         spawnCoinCounter++;
+    }
+    public void SetDeathCount()
+    {
+        deathCount ++;
+        Debug.Log("deathCount: " + deathCount);
+    }
+    public int GetDeathCount()
+    {
+        return deathCount;
     }
 }

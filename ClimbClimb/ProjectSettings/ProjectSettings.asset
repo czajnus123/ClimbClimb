@@ -743,9 +743,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: e8c55b9e-733f-429a-b3a4-744cb36df4b5
+  projectName: ClimbClimb
+  organizationId: gamemarmelade
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

@@ -122,8 +122,18 @@ public class PlayerScript : MonoBehaviour {
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag != "Coin")
+        {
+            gameController.SetDeathCount();
+        }
+        if (gameController.GetDeathCount() > 1)
+        {
+            Destroy(gameObject);
+        }
             GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
-            gameController.SetGameOver(true);
+            GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(false);
+
+        gameController.SetGameOver(true);
             gameController.SetEndMenu(true);
             saveManager.Save();
             try
@@ -135,7 +145,8 @@ public class PlayerScript : MonoBehaviour {
                 Destroy(collision.gameObject);
             }
 
-            Destroy(gameObject);
+
+
 
     }
 
