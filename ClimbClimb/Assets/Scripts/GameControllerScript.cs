@@ -69,8 +69,10 @@ public class GameControllerScript : MonoBehaviour {
                 gameOver = false;
                 if (GameObject.Find("TapToPlay"))
                 {
+                    GameObject.Find("ShopButton").SetActive(false);
                     GameObject.Find("TapToPlay").SetActive(false);
-                    GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
+                    GameObject.Find("NoAdsButton").SetActive(false);
+                GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
                 }
             }
 		
@@ -92,7 +94,7 @@ public class GameControllerScript : MonoBehaviour {
     }
     public bool GetEndMenuBool()
     {
-
+ 
         return endMenu;
     }
     public bool GetRightSideBool()
