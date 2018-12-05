@@ -31,10 +31,10 @@ public class AIScript : MonoBehaviour {
         if (gameController.GetGameOver() == false)
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
-            if(gameObject.transform.position.y < player.transform.position.y && !wyprzedzoned)
+            if (gameObject.transform.position.y < player.transform.position.y && !wyprzedzoned)
             {
-                wyprzedzoned = true;
-                PlayerPrefs.SetInt("position", PlayerPrefs.GetInt("position", 1000) - 1);
+             wyprzedzoned = true;
+             PlayerPrefs.SetInt("position", PlayerPrefs.GetInt("position", 1000) - 1);
             }
         }
         else if(gameController.GetGameOver() && speed>0)

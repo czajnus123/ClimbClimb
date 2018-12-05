@@ -29,7 +29,14 @@ public class ObstacleScript : MonoBehaviour {
 
         if (gameController.GetSpawnCoinCounter() >= 10)
         {
-            gameObject.transform.Find("Coin").gameObject.SetActive(true);
+            try
+            {
+                gameObject.transform.Find("Coin").gameObject.SetActive(true);
+            }
+            catch
+            {
+
+            }
         }
         
     }

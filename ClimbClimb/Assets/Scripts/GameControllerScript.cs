@@ -15,6 +15,10 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject spawnObstacleLeft;
     public GameObject spawnLightLeft;
     public GameObject spawnLightRight;
+    public GameObject background;
+
+    private Color targetColor;
+    float timeLeft;
 
     public bool rightSide;
     public bool gameOver;
@@ -46,6 +50,9 @@ public class GameControllerScript : MonoBehaviour {
         coinCount = 0;
         deathCount = 0;
 
+
+        targetColor = background.GetComponent<SpriteRenderer>().material.color;
+
         posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/2
             + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2),posLeft.transform.position.y);
 
@@ -59,6 +66,10 @@ public class GameControllerScript : MonoBehaviour {
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
+
+        var player = GameObject.Find("Player(Clone)");
+        GameObject.Find("LeftParticle").transform.position = new Vector2(GameObject.Find("posLeft").transform.position.x -
+            player.GetComponent<SpriteRenderer>().bounds.size.x / 2, player.transform.position.y);
 
         Application.targetFrameRate = 600;
     }
@@ -77,6 +88,23 @@ public class GameControllerScript : MonoBehaviour {
                 GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
                 }
             }
+        if (gameOver == false)
+        {
+            if (timeLeft <= Time.deltaTime)
+            {
+                background.GetComponent<SpriteRenderer>().material.color = targetColor;
+
+                targetColor = new Color(Random.Range(0,3), Random.Range(0,3), Random.Range(0,3));
+
+                timeLeft = 10.0f;
+            }
+            else
+            {
+                background.GetComponent<SpriteRenderer>().material.color = Color.Lerp(background.GetComponent<SpriteRenderer>().material.color, targetColor, Time.deltaTime / timeLeft);
+
+                timeLeft -= Time.deltaTime;
+            }
+        }
 		
 	}
 

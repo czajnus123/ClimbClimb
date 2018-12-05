@@ -49,6 +49,12 @@ TagManager:
   - name: Ground
     uniqueID: 1105058571
     locked: 0
+  - name: Stars
+    uniqueID: 3230508277
+    locked: 0
+  - name: Net
+    uniqueID: 3396683417
+    locked: 0
   - name: Player
     uniqueID: 3115715775
     locked: 0
