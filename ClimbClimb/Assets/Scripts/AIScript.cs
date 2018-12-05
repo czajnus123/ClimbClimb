@@ -47,13 +47,21 @@ public class AIScript : MonoBehaviour {
     public void change_side()
     {
         if (this.transform.position.x > 0)
-            while(this.transform.position.x != posLeft.transform.position.x)
+        {
+            GameObject.Find("ORightParticle").GetComponent<ParticleSystem>().Stop();
+            GameObject.Find("OLeftParticle").GetComponent<ParticleSystem>().Play();
+            while (this.transform.position.x != posLeft.transform.position.x)
                 gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position,
                     new Vector2(posLeft.transform.position.x, gameObject.transform.position.y), 2);
+        }
         else
+        {
+            GameObject.Find("ORightParticle").GetComponent<ParticleSystem>().Play();
+            GameObject.Find("OLeftParticle").GetComponent<ParticleSystem>().Stop();
             while (this.transform.position.x != posRight.transform.position.x)
                 gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position,
                     new Vector2(posRight.transform.position.x, gameObject.transform.position.y), 2);
+        }
 
     }
 

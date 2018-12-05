@@ -59,14 +59,12 @@ public class PlayerScript : MonoBehaviour {
                     if (rightSide == true)
                     {
                     gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, posLeft.transform.position, 2);
+                    GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Stop();
                     
-                    if (gameObject.transform.position.x == posLeft.transform.position.x)
-                    {
-                        gameObject.transform.Find("LeftSlam").gameObject.SetActive(true);
-                        if (leftSlam == false)
-                        {
-                            StartCoroutine("LeftSlamCounter");
-                        }
+
+                     if (gameObject.transform.position.x == posLeft.transform.position.x)
+                     {
+                        GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Play();
                     }
 
                     GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = false;
@@ -75,13 +73,12 @@ public class PlayerScript : MonoBehaviour {
                     {
                     gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, posRight.transform.position, 2);
                     
+                    GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
+
+
                     if (gameObject.transform.position.x == posRight.transform.position.x)
                     {
-                        gameObject.transform.Find("RightSlam").gameObject.SetActive(true);
-                        if (rightSlam == false)
-                        {
-                            StartCoroutine("RightSlamCounter");
-                        }
+                        GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Play();
                     }
 
                     GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = true;
@@ -138,7 +135,9 @@ public class PlayerScript : MonoBehaviour {
             saveManager.Save();
             try
             {
-                Destroy(collision.transform.parent.gameObject);
+            GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
+            GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Stop();
+            Destroy(collision.transform.parent.gameObject);
             }
             catch
             {

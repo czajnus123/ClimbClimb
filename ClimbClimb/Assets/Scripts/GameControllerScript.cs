@@ -67,9 +67,12 @@ public class GameControllerScript : MonoBehaviour {
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
 
-        var player = GameObject.Find("Player(Clone)");
+       /* var player = GameObject.Find("Player(Clone)");
         GameObject.Find("LeftParticle").transform.position = new Vector2(GameObject.Find("posLeft").transform.position.x -
             player.GetComponent<SpriteRenderer>().bounds.size.x / 2, player.transform.position.y);
+
+        GameObject.Find("RightParticle").transform.position = new Vector2(GameObject.Find("posRight").transform.position.x +
+    player.GetComponent<SpriteRenderer>().bounds.size.x / 2, player.transform.position.y);*/
 
         Application.targetFrameRate = 600;
     }

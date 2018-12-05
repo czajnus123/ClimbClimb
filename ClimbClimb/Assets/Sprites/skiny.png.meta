@@ -108,18 +108,18 @@ TextureImporter:
       name: skiny_0
       rect:
         serializedVersion: 2
-        x: 83
-        y: 3432
-        width: 751
-        height: 748
+        x: 102
+        y: 3448
+        width: 715
+        height: 715
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbba45a3c1d3da34e830bb94644a71dc
+      spriteID: df9f23bdaaaf047408f62f622b75ac3c
       vertices: []
       indices: 
       edges: []
@@ -129,17 +129,17 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1752
-        y: 3448
-        width: 714
-        height: 732
+        y: 3450
+        width: 710
+        height: 710
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a6c0745f90812b4a94963c810e31c21
+      spriteID: 6a3e56e81f5d371439a76ed1f22ef340
       vertices: []
       indices: 
       edges: []
@@ -148,18 +148,18 @@ TextureImporter:
       name: skiny_2
       rect:
         serializedVersion: 2
-        x: 3236
+        x: 3240
         y: 3373
-        width: 709
-        height: 707
+        width: 690
+        height: 690
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe143218333de3b4c88be052fe7e5523
+      spriteID: c1e65d13bba188a4ba72f8bacdf068e9
       vertices: []
       indices: 
       edges: []
@@ -168,18 +168,18 @@ TextureImporter:
       name: skiny_3
       rect:
         serializedVersion: 2
-        x: 26
-        y: 2267
-        width: 750
-        height: 750
+        x: 42
+        y: 2283
+        width: 715
+        height: 715
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b6f717c862cf9547820ca7fdf122a28
+      spriteID: 5631e6a26190ad245963bcbfe4a2f650
       vertices: []
       indices: 
       edges: []
@@ -190,16 +190,16 @@ TextureImporter:
         serializedVersion: 2
         x: 1707
         y: 2303
-        width: 682
-        height: 682
+        width: 680
+        height: 680
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a90aca89c1cdf44f94c5a30658d0974
+      spriteID: 60e812864e1511948808ff6a677ca887
       vertices: []
       indices: 
       edges: []
@@ -208,18 +208,18 @@ TextureImporter:
       name: skiny_5
       rect:
         serializedVersion: 2
-        x: 30
-        y: 1161
-        width: 750
-        height: 750
+        x: 45
+        y: 1178
+        width: 715
+        height: 715
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c75c98e249cf37d4592371bfb53e570d
+      spriteID: 2471adc7c8c5ae24caf4a083b664b23a
       vertices: []
       indices: 
       edges: []
@@ -228,18 +228,18 @@ TextureImporter:
       name: skiny_6
       rect:
         serializedVersion: 2
-        x: 1669
-        y: 0
-        width: 686
-        height: 687
+        x: 1760
+        y: 1170
+        width: 650
+        height: 630
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5dfa2e1bd5de04341961ca651283a505
+      spriteID: b796c39f0e7a8414380f5c83f24beda8
       vertices: []
       indices: 
       edges: []
@@ -248,18 +248,18 @@ TextureImporter:
       name: skiny_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 829
-        height: 805
+        x: 15
+        y: 70
+        width: 715
+        height: 715
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11d8d9d12f1de894ba05172d5a0a773c
+      spriteID: 81f5deb6aba96e84f831de13353316f6
       vertices: []
       indices: 
       edges: []
@@ -268,38 +268,18 @@ TextureImporter:
       name: skiny_8
       rect:
         serializedVersion: 2
-        x: 1700
-        y: 1110
-        width: 745
-        height: 745
+        x: 1675
+        y: 8
+        width: 670
+        height: 670
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3b45e143b05bbc4081b5796547b4b5d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skiny_9
-      rect:
-        serializedVersion: 2
-        x: 2481
-        y: 1286
-        width: 23
-        height: 36
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 819dc946cc49ff94d9f680b2902d6e43
+      spriteID: 37a7e69f41539ec4da6f07fec53da554
       vertices: []
       indices: 
       edges: []
