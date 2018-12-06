@@ -16,6 +16,7 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject spawnLightLeft;
     public GameObject spawnLightRight;
     public GameObject background;
+    public GameObject background2;
 
     private Color targetColor;
     float timeLeft;
@@ -51,7 +52,6 @@ public class GameControllerScript : MonoBehaviour {
         toSpawn = true;
         coinCount = 0;
         deathCount = 0;
-
 
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
@@ -91,6 +91,7 @@ public class GameControllerScript : MonoBehaviour {
             if (timeLeft <= Time.deltaTime)
             {
                 background.GetComponent<SpriteRenderer>().material.color = targetColor;
+                background2.GetComponent<SpriteRenderer>().material.color = targetColor;
 
                 targetColor = new Color(Random.Range(0,3), Random.Range(0,3), Random.Range(0,3));
 
@@ -99,6 +100,7 @@ public class GameControllerScript : MonoBehaviour {
             else
             {
                 background.GetComponent<SpriteRenderer>().material.color = Color.Lerp(background.GetComponent<SpriteRenderer>().material.color, targetColor, Time.deltaTime / timeLeft);
+                background2.GetComponent<SpriteRenderer>().material.color = Color.Lerp(background.GetComponent<SpriteRenderer>().material.color, targetColor, Time.deltaTime / timeLeft);
 
                 timeLeft -= Time.deltaTime;
             }

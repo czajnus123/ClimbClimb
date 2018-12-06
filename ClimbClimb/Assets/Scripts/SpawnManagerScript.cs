@@ -15,9 +15,13 @@ public class SpawnManagerScript : MonoBehaviour {
     private bool changeSpawnCounter;
     private bool spawnBasic;
     private bool spawnTunnel;
+    private bool camSwithced;
+    private bool zeroed = false;
+    private bool rotated = false;
 
     private int leftCount;
     private int rightCount;
+    private float sideCam;
 
 
     public GameObject spawnRight;
@@ -30,6 +34,7 @@ public class SpawnManagerScript : MonoBehaviour {
     public GameObject spawnLightLeftPos;
     public GameObject spawnLightRightPos;
     public GameObject lightningPrefab;
+    public GameObject camera;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
@@ -39,7 +44,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+         
         points = 0;
         leftCount = 0;
         rightCount = 0;
@@ -51,8 +56,11 @@ public class SpawnManagerScript : MonoBehaviour {
         toSpawnCoin = true;
         spawnBasic = true;
         spawnTunnel = false;
-        changeSpawnCounter = true;		
-	}
+        changeSpawnCounter = true;
+        camSwithced = false;
+        zeroed = false;
+        rotated = false;
+}
 	
 	// Update is called once per frame
 	void Update () {
@@ -72,6 +80,9 @@ public class SpawnManagerScript : MonoBehaviour {
                     case 1:
                         SpawnTunnel();
                         break;
+                    case 2:
+                        RotateCamera();
+                        break;
                         
                 }
                 /*if (!FindByTag("Tunnel") && !FindByTag("Obstacle"))
@@ -87,9 +98,27 @@ public class SpawnManagerScript : MonoBehaviour {
             }
             if (pointManager.GetPoints() >= points + 10)
             {
-                points = pointManager.GetPoints();
-                var ob = Random.Range(0f, 2f);
-                obstacleType = (int)ob;
+                if (zeroed == false)
+                {
+                    if (camera.transform.rotation != Quaternion.Euler(0, 0, 0))
+                    {
+                        var target = Quaternion.Euler(0, 0, 0);
+                        camera.transform.rotation = Quaternion.Lerp(camera.transform.rotation, target, 2 * Time.deltaTime);
+                    }
+                    else
+                    {
+                        zeroed = true;
+                        sideCam = Random.RandomRange(0f, 2f);
+                        Debug.Log("sidecam:" + sideCam);
+                    }
+                }
+                else
+                {
+                    points = pointManager.GetPoints();
+                    var ob = Random.Range(0f, 3f);
+                    obstacleType = (int)ob;
+                }
+                
             }
         }
     }
@@ -135,6 +164,47 @@ public class SpawnManagerScript : MonoBehaviour {
         else
         {
             Instantiate(tunnelRightObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
+        }
+    }
+
+    void RotateCamera()
+    {
+
+        if (zeroed == true && rotated == false)
+        {
+
+            if (sideCam < 1)
+            {
+                if (camera.transform.rotation != Quaternion.Euler(0, 0, 45))
+                {
+                    var target = Quaternion.Euler(0, 0, 45);
+                    camera.transform.rotation = Quaternion.Lerp(camera.transform.rotation, target, 2 * Time.deltaTime);
+                }
+                else
+                    rotated = true;
+            }
+            else if (sideCam >= 1)
+            {
+                if (camera.transform.rotation != Quaternion.Euler(0, 0, -45))
+                {
+                    var target = Quaternion.Euler(0, 0, -45);
+                    camera.transform.rotation = Quaternion.Lerp(camera.transform.rotation, target, 2 * Time.deltaTime);
+                }
+                else
+                    rotated = true;
+            }
+
+        }
+        if (rotated == true)
+        {
+            var obsType = Random.RandomRange(0f, 2f);
+            if (obsType <= 1)
+                obstacleType = 0;
+            else
+                obstacleType = 1;
+
+            zeroed = false;
+            rotated = false;
         }
     }
 

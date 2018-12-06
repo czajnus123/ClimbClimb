@@ -77,6 +77,8 @@ public class ObstacleScript : MonoBehaviour {
 
             Destroy(gameObject);
         }
+        else if (gameObject.tag == "Coin" && collision.gameObject.tag == "End")
+            Destroy(gameObject);
 
     }
 }
