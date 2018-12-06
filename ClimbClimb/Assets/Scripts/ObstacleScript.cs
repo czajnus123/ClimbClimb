@@ -6,9 +6,11 @@ public class ObstacleScript : MonoBehaviour {
 
     private GameControllerScript gameController;
     private float speed=1f;
+    bool spawned;
 
 	// Use this for initialization
 	void Start () {
+        spawned = false;
         if (gameObject.tag == "Obstacle")
         {
             speed = 7f;
@@ -46,6 +48,19 @@ public class ObstacleScript : MonoBehaviour {
         if (gameController.GetGameOver() == false)
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
+            if (spawned == false)
+            {
+                if (gameObject.tag=="Obstacle" && gameObject.transform.position.y <= GameObject.Find("spawnTrigger").transform.position.y)
+                {
+                    gameController.SetToSpawn(true);
+                    spawned = true;
+                }
+                if (gameObject.tag == "Tunnel" && gameObject.transform.position.y <= GameObject.Find("spawnTriggerT").transform.position.y)
+                {
+                    gameController.SetToSpawn(true);
+                    spawned = true;
+                }
+            }
         }
         else if (gameController.GetDeathCount()>1)
         {

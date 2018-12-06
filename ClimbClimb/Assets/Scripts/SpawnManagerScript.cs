@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnManagerScript : MonoBehaviour {
 
-    private float obstacleType;
+    private int obstacleType;
     private float seconds;
     private float coinSeconds;
     private float points;
@@ -15,6 +15,9 @@ public class SpawnManagerScript : MonoBehaviour {
     private bool changeSpawnCounter;
     private bool spawnBasic;
     private bool spawnTunnel;
+
+    private int leftCount;
+    private int rightCount;
 
 
     public GameObject spawnRight;
@@ -38,17 +41,17 @@ public class SpawnManagerScript : MonoBehaviour {
 	void Start () {
 
         points = 0;
+        leftCount = 0;
+        rightCount = 0;
 
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
-        //playerScript = GameObject.Find("Player(Clone)").GetComponent<PlayerScript>();
 
         toSpawn = true;
         toSpawnCoin = true;
         spawnBasic = true;
         spawnTunnel = false;
-        changeSpawnCounter = true;
-		
+        changeSpawnCounter = true;		
 	}
 	
 	// Update is called once per frame
@@ -56,31 +59,27 @@ public class SpawnManagerScript : MonoBehaviour {
 
         if (gameController.GetGameOver() == false)
         {
-            if (toSpawn == true)
+            if (gameController.GetToSpawn() == true)
             {
-                if (obstacleType == 0)
+                switch (obstacleType)
                 {
-                    if (!FindByTag("Tunnel"))
+                    case 0:
+                        if (!FindByTag("Tunnel"))
+                        {
+                            SpawnBasic();
+                        }
+                        break;
+                    case 1:
+                        SpawnTunnel();
+                        break;
+                        
+                }
+                /*if (!FindByTag("Tunnel") && !FindByTag("Obstacle"))
                     {
-                        StartCoroutine("SpawnBasic");
+                        obstacleType = 0;
+                    //StartCoroutine("SpawnLightning");
                     }
-                    
-                }
-                else if (obstacleType == 1)
-                {
-
-                        StartCoroutine("SpawnTunnel");
-
-                }
-
-                else if (obstacleType == 2)
-                {
-                if (!FindByTag("Tunnel") && !FindByTag("Obstacle"))
-                    {
-                    
-                    StartCoroutine("SpawnLightning");
-                    }
-                }
+                }*/
             }
             if (toSpawnCoin == true)
             {
@@ -90,38 +89,46 @@ public class SpawnManagerScript : MonoBehaviour {
             {
                 points = pointManager.GetPoints();
                 var ob = Random.Range(0f, 2f);
-                obstacleType = Mathf.Round(ob);
-                Debug.Log(ob+" change obstacle: " + obstacleType);
+                obstacleType = (int)ob;
             }
         }
     }
 
-    IEnumerator SpawnBasic()
+    void SpawnBasic()
     {
-            toSpawn = false;
-            seconds = Random.Range(.3f, .6f);
-            side = Mathf.Round(Random.RandomRange(0f,1f));
-            yield return new WaitForSeconds(seconds);
-            if (side ==0)
-            {
-                Instantiate(basicObstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
+        gameController.SetToSpawn(false);
+        side = Mathf.Round(Random.RandomRange(0f, 1f));
+        if (leftCount >2)
+        {
+            side = 1;
+            leftCount = 0;
+
         }
-            else
-            {
-                Instantiate(basicObstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y), Quaternion.identity);
+        if (rightCount > 2)
+        {
+            side = 0;
+            rightCount = 0;
+
         }
-            toSpawn = true;
+        if (side == 0)
+        {
+            leftCount = leftCount + 1;
+            Instantiate(basicObstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
+        }
+        else
+        {
+            rightCount = rightCount + 1;
+            Instantiate(basicObstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y), Quaternion.identity);
+        }
+
     }
 
-    IEnumerator SpawnTunnel()
+    void SpawnTunnel()
     {
-
-        toSpawn = false;
-        seconds = Random.Range(1, 3);
+        gameController.SetToSpawn(false);
         side = Mathf.Round(Random.RandomRange(0f, 1f));
-        Debug.Log("side "+side);
-        yield return new WaitForSeconds(seconds);
-        if (side==0)
+
+        if (side == 0)
         {
             Instantiate(tunnelLeftObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
         }
@@ -129,7 +136,6 @@ public class SpawnManagerScript : MonoBehaviour {
         {
             Instantiate(tunnelRightObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
         }
-        toSpawn = true;
     }
 
     IEnumerator SpawnCoin()
@@ -141,7 +147,7 @@ public class SpawnManagerScript : MonoBehaviour {
         toSpawnCoin = true;
     }
 
-    IEnumerator SpawnLightning()
+   /* IEnumerator SpawnLightning()
     {
         toSpawn = false;
         seconds = Random.RandomRange(.8f, 1.5f);
@@ -157,7 +163,7 @@ public class SpawnManagerScript : MonoBehaviour {
         toSpawn = true;
 
 
-    }
+    }*/
 
     private bool FindByTag(string tag)
     {
