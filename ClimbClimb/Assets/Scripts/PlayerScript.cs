@@ -33,8 +33,8 @@ public class PlayerScript : MonoBehaviour {
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
 
-        gameController.Skin = Random.Range(0, 9);
-        GetComponent<SpriteRenderer>().sprite = skins[gameController.Skin];
+       /* gameController.Skin = Random.Range(0, 9);
+        GetComponent<SpriteRenderer>().sprite = skins[gameController.Skin];*/
         //GetComponent<TrailRenderer>().material = trails[gameController.Skin];
 
     }

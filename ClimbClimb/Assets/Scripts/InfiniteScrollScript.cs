@@ -85,8 +85,9 @@ public class InfiniteScrollScript : MonoBehaviour
             if (_isHorizontal)
             {
                 _recordOffsetX = items[1].GetComponent<RectTransform>().anchoredPosition.x - items[0].GetComponent<RectTransform>().anchoredPosition.x;
-                _disableMarginX = _recordOffsetX * _itemCount / 2;//_scrollRect.GetComponent<RectTransform>().rect.width/2 + items[0].sizeDelta.x;
-                _disableMarginX = 50;
+                _disableMarginX = _recordOffsetX * _itemCount / 30;//_scrollRect.GetComponent<RectTransform>().rect.width/2 + items[0].sizeDelta.x;
+            Debug.Log(_disableMarginX);
+               // _disableMarginX = 50;
         }
 
             if (_verticalLayoutGroup)

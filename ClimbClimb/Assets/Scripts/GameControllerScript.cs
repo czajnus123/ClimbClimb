@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
@@ -18,6 +19,9 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject spawnLightRight;
     public GameObject background;
     public GameObject background2;
+    public GameObject content;
+    public Sprite[] skins;
+    public Button basicButton;
 
     private Color targetColor;
     float timeLeft;
@@ -71,6 +75,20 @@ public class GameControllerScript : MonoBehaviour {
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
+        var playerSkin = PlayerPrefs.GetString("skin");
+        Debug.Log(playerSkin);
+
+        for(int i = 0; i < skins.Length; i++)
+        {
+            var skin = Instantiate(basicButton, Vector3.zero, Quaternion.identity);
+            skin.transform.parent = content.transform;
+            skin.GetComponent<Image>().sprite = skins[i];
+            skin.transform.localScale=new Vector2(2,2);
+            var skin2 = skins[i];
+            if (playerSkin == skins[i].name+" (UnityEngine.Sprite)")
+                GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite = skins[i];
+            
+        }
 
         Application.targetFrameRate = 600;
     }

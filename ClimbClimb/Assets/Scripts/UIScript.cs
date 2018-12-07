@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIScript : MonoBehaviour {
     public TextMeshProUGUI highScoreText;
@@ -17,6 +18,7 @@ public class UIScript : MonoBehaviour {
     public GameObject noAdsButton;
     public GameObject texts;
     public GameObject shopButton;
+    public InfiniteScrollScript infScript;
 
     private int highScore;
     private int score;
@@ -88,6 +90,7 @@ public class UIScript : MonoBehaviour {
 
     public void ShowShop()
     {
+        infScript.Init();
         texts.SetActive(false);
         shopUI.SetActive(true);
         noAdsButton.SetActive(false);
@@ -97,6 +100,8 @@ public class UIScript : MonoBehaviour {
     }
     public void HideShop()
     {
+        GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite = GameObject.Find("SPlayer").GetComponent<SpriteRenderer>().sprite;
+        PlayerPrefs.SetString("skin", GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite.ToString());
         texts.SetActive(true);
         shopUI.SetActive(false);
         noAdsButton.SetActive(true);
@@ -113,5 +118,11 @@ public class UIScript : MonoBehaviour {
     public void StartRestartCount()
     {
         startRestartCount = true;
+    }
+
+    public void SetPlayerSkin()
+    {
+        GameObject.Find("SPlayer").GetComponent<SpriteRenderer>().sprite= EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite;
+
     }
 }
