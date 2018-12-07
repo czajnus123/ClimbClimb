@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class GameControllerScript : MonoBehaviour {
 
@@ -25,6 +26,7 @@ public class GameControllerScript : MonoBehaviour {
     public bool gameOver;
     public bool endMenu;
     public bool toSpawn;
+    public bool shopActive;
 
     private int skin =0;
     public int Skin
@@ -46,6 +48,7 @@ public class GameControllerScript : MonoBehaviour {
         //PlayerPrefs.SetInt("coins", 0);
         //PlayerPrefs.SetInt("position", 1000);
         //PlayerPrefs.SetFloat("highscore",0);
+        shopActive = false;
         rightSide = true;
         gameOver = true;
         endMenu = false;
@@ -75,7 +78,9 @@ public class GameControllerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
             
-            if (Input.touchCount > 0&&gameOver == true && endMenu == false)
+            if (Input.touchCount > 0 && gameOver == true && endMenu == false && Input.touches[0].phase==TouchPhase.Began&&shopActive==false)
+            {
+            if (!EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
             {
                 gameOver = false;
                 if (GameObject.Find("TapToPlay"))
@@ -83,8 +88,9 @@ public class GameControllerScript : MonoBehaviour {
                     GameObject.Find("ShopButton").SetActive(false);
                     GameObject.Find("TapToPlay").SetActive(false);
                     GameObject.Find("NoAdsButton").SetActive(false);
-                GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
+                    GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
                 }
+            }
             }
         if (gameOver == false)
         {
@@ -168,5 +174,10 @@ public class GameControllerScript : MonoBehaviour {
     public void SetToSpawn(bool spawn)
     {
         toSpawn = spawn;
+    }
+    public void SetShopState(bool active)
+    {
+        shopActive = active;
+
     }
 }

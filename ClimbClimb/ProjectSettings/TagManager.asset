@@ -64,6 +64,12 @@ TagManager:
   - name: Particle
     uniqueID: 2991504445
     locked: 0
+  - name: ShopBackground
+    uniqueID: 1431089245
+    locked: 0
+  - name: ShopItems
+    uniqueID: 4285827211
+    locked: 0
   - name: GUI
     uniqueID: 850061269
     locked: 0

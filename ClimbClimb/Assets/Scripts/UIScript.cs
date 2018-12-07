@@ -12,6 +12,11 @@ public class UIScript : MonoBehaviour {
 
 
     public GameObject ADCountCircle;
+    public GameObject shopBackground;
+    public GameObject shopUI;
+    public GameObject noAdsButton;
+    public GameObject texts;
+    public GameObject shopButton;
 
     private int highScore;
     private int score;
@@ -79,6 +84,25 @@ public class UIScript : MonoBehaviour {
         {
             SceneManager.LoadScene("SampleScene");
         }
+    }
+
+    public void ShowShop()
+    {
+        texts.SetActive(false);
+        shopUI.SetActive(true);
+        noAdsButton.SetActive(false);
+        shopButton.SetActive(false);
+        shopBackground.SetActive(true);
+        gameController.SetShopState(true);
+    }
+    public void HideShop()
+    {
+        texts.SetActive(true);
+        shopUI.SetActive(false);
+        noAdsButton.SetActive(true);
+        shopButton.SetActive(true);
+        shopBackground.SetActive(false);
+        gameController.SetShopState(false);
     }
 
     public void ExitGame()
