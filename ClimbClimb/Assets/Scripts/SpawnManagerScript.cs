@@ -18,6 +18,7 @@ public class SpawnManagerScript : MonoBehaviour {
     private bool camSwithced;
     private bool zeroed = false;
     private bool rotated = false;
+    private bool rotatingCamera;
 
     private int leftCount;
     private int rightCount;
@@ -60,6 +61,7 @@ public class SpawnManagerScript : MonoBehaviour {
         camSwithced = false;
         zeroed = false;
         rotated = false;
+        rotatingCamera = false;
 }
 	
 	// Update is called once per frame
@@ -81,7 +83,8 @@ public class SpawnManagerScript : MonoBehaviour {
                         SpawnTunnel();
                         break;
                     case 2:
-                        RotateCamera();
+                        rotatingCamera = true;
+                        SpawnBasic();
                         break;
                         
                 }
@@ -95,6 +98,10 @@ public class SpawnManagerScript : MonoBehaviour {
             if (toSpawnCoin == true)
             {
                 StartCoroutine("SpawnCoin");
+            }
+            if (rotatingCamera == true)
+            {
+                RotateCamera();
             }
             if (pointManager.GetPoints() >= points + 10)
             {
@@ -205,6 +212,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
             zeroed = false;
             rotated = false;
+            rotatingCamera = false;
         }
     }
 

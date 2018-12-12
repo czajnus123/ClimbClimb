@@ -76,7 +76,6 @@ public class GameControllerScript : MonoBehaviour {
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
         var playerSkin = PlayerPrefs.GetString("skin");
-        Debug.Log(playerSkin);
 
         for(int i = 0; i < skins.Length; i++)
         {

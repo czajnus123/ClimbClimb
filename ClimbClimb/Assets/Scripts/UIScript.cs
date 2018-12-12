@@ -18,6 +18,7 @@ public class UIScript : MonoBehaviour {
     public GameObject noAdsButton;
     public GameObject texts;
     public GameObject shopButton;
+    public GameObject shopBg;
     public InfiniteScrollScript infScript;
 
     private int highScore;
@@ -36,6 +37,7 @@ public class UIScript : MonoBehaviour {
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
         gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
         adManager = GameObject.Find("mainObject").GetComponent<AdManager>();
+        infScript = shopBg.GetComponent<InfiniteScrollScript>();
 		
 	}
 	
