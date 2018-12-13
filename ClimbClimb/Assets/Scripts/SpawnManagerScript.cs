@@ -84,7 +84,10 @@ public class SpawnManagerScript : MonoBehaviour {
                         break;
                     case 2:
                         rotatingCamera = true;
-                        SpawnBasic();
+                        if (!FindByTag("Tunnel"))
+                        {
+                            SpawnBasic();
+                        }
                         break;
                         
                 }

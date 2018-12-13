@@ -73,7 +73,7 @@ public class ObstacleScript : MonoBehaviour {
     {
         if (gameObject.tag == "Coin" && collision.gameObject.tag == "Player")
         {
-            PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins", 0) + 1);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 0) + 1);
 
             Destroy(gameObject);
         }

@@ -47,7 +47,7 @@ public class PointManagerScript : MonoBehaviour {
 
             scoreText.text = Mathf.Round(scoreCount).ToString();
             //coinText.text = gameController.GetCoinAmount().ToString();
-            coinText.text = PlayerPrefs.GetInt("coins", 0).ToString();
+            coinText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
             positionText.text ="#" + PlayerPrefs.GetInt("position", 1000).ToString();
             //W tym miejscu zrobic staly update textu od hiScore: hiScoreText.text=hiscoreCount.Mathf.Round(hiScoreCount)
 

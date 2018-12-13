@@ -7,6 +7,11 @@ using UnityEngine.EventSystems;
 
 public class GameControllerScript : MonoBehaviour {
 
+    private static GameControllerScript instance;
+    public static GameControllerScript Instance { get { return instance; } }
+
+    public TextMeshProUGUI coinText;
+
     public GameObject playerPrefab;
     public GameObject oponentPrefab;
     public GameObject spawnPlayerPos;
@@ -39,16 +44,19 @@ public class GameControllerScript : MonoBehaviour {
         set { skin = value; }
     }
 
-    private int coinCount;
+    public int coinCount;
     private int spawnCoinCounter;
     private int deathCount;
+
+    public int currentSkinIndex = 0;
+    public int skinAvailability = 0;
 
    // bool spawned;
     float seconds;
     int side;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         //PlayerPrefs.SetInt("coins", 0);
         //PlayerPrefs.SetInt("position", 1000);
         //PlayerPrefs.SetFloat("highscore",0);
@@ -59,6 +67,8 @@ public class GameControllerScript : MonoBehaviour {
         toSpawn = true;
         coinCount = 0;
         deathCount = 0;
+        currentSkinIndex = 0;
+        instance = this;
 
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
@@ -75,25 +85,18 @@ public class GameControllerScript : MonoBehaviour {
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
-        var playerSkin = PlayerPrefs.GetString("skin");
 
-        for(int i = 0; i < skins.Length; i++)
-        {
-            var skin = Instantiate(basicButton, Vector3.zero, Quaternion.identity);
-            skin.transform.parent = content.transform;
-            skin.GetComponent<Image>().sprite = skins[i];
-            skin.transform.localScale=new Vector2(2,2);
-            var skin2 = skins[i];
-            if (playerSkin == skins[i].name+" (UnityEngine.Sprite)")
-                GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite = skins[i];
-            
-        }
+       // ResetSaves();
+        Load();
+        SpawnSkins();
+        ChangeSkin(currentSkinIndex);
 
         Application.targetFrameRate = 600;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        coinText.text = PlayerPrefs.GetInt("Coins").ToString();
             
             if (Input.touchCount > 0 && gameOver == true && endMenu == false && Input.touches[0].phase==TouchPhase.Began&&shopActive==false)
             {
@@ -196,5 +199,65 @@ public class GameControllerScript : MonoBehaviour {
     {
         shopActive = active;
 
+    }
+
+    private void ChangeSkin(int index)
+    {
+        GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite = skins[index];
+
+
+    }
+    public void SetCurrentSkinIndex(int index)
+    {
+        currentSkinIndex = index;
+    }
+
+    public void SpawnSkins()
+    {
+        for (int i = 0; i < skins.Length; i++)
+        {
+            var skin = Instantiate(basicButton, Vector3.zero, Quaternion.identity);
+            skin.transform.parent = content.transform;
+            skin.GetComponent<Image>().sprite = skins[i];
+            skin.transform.localScale = new Vector2(2, 2);
+            if ((skinAvailability & 1 << i) == 1 << i)
+            {
+                skin.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            var skin2 = skins[i];
+        }
+        
+
+    }
+
+    public void Save()
+    {
+        PlayerPrefs.SetInt("SkinAvailability", skinAvailability);
+        PlayerPrefs.SetInt("CurrentSkin", currentSkinIndex);
+        PlayerPrefs.SetInt("Coins", coinCount);
+    }
+    public void Load()
+    {
+        if (PlayerPrefs.HasKey("CurrentSkin"))
+        {
+            skinAvailability = PlayerPrefs.GetInt("SkinAvailability");
+            currentSkinIndex = PlayerPrefs.GetInt("CurrentSkin");
+            coinCount = PlayerPrefs.GetInt("Coins");
+            coinText.text = coinCount.ToString();
+        }
+        else
+        {
+            Debug.Log("first play");
+            PlayerPrefs.SetInt("SkinAvailability", 1);
+            PlayerPrefs.SetInt("CurrentSkin", 0);
+            PlayerPrefs.SetInt("Coins", 0);
+            PlayerPrefs.SetInt("position", 1000);
+            PlayerPrefs.SetFloat("highscore", 0);
+            Load();
+        }
+    }
+    public void ResetSaves()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }
