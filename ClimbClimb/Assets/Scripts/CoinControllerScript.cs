@@ -8,7 +8,7 @@ public class CoinControllerScript : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             //gameController.AddCoin(1);
-            PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins", 0) + 1);
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 0) + 1);
             Destroy(gameObject);
         }
     }

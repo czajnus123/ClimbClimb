@@ -37,12 +37,10 @@ public class BackgroundMove : MonoBehaviour {
             case 2:
                 gameObject.transform.position = new Vector2(stars1.transform.position.x, (stars1.transform.position.y +
                     stars1.GetComponent<SpriteRenderer>().bounds.size.y));
-                Debug.Log("done by: " + gameObject.name);
                 break;
             case 3:
                 gameObject.transform.position = new Vector2(stars1.transform.position.x, (stars1.transform.position.y +
                     stars1.GetComponent<SpriteRenderer>().bounds.size.y*2));
-                Debug.Log("done by: " + gameObject.name);
                 break;
         }
 		
