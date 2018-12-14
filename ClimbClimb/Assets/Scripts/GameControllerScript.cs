@@ -12,54 +12,28 @@ public class GameControllerScript : MonoBehaviour {
 
     public TextMeshProUGUI coinText;
 
-    public GameObject playerPrefab;
-    public GameObject oponentPrefab;
-    public GameObject spawnPlayerPos;
-    public GameObject posLeft;
-    public GameObject leftWall;
-    public GameObject rightWall;
-    public GameObject spawnObstacleRight;
-    public GameObject spawnObstacleLeft;
-    public GameObject spawnLightLeft;
-    public GameObject spawnLightRight;
-    public GameObject background;
-    public GameObject background2;
-    public GameObject content;
+    public GameObject playerPrefab, oponentPrefab, spawnPlayerPos, posLeft, leftWall, rightWall, spawnObstacleRight, spawnObstacleLeft,
+        spawnLightLeft, spawnLightRight, background, background2, content;
+
     public Sprite[] skins;
     public Button basicButton;
-
     private Color targetColor;
-    float timeLeft;
 
-    public bool rightSide;
-    public bool gameOver;
-    public bool endMenu;
-    public bool toSpawn;
-    public bool shopActive;
+    public bool rightSide, gameOver, endMenu, toSpawn, shopActive;
 
-    private int skin =0;
+    public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0;
+
+    private int skin = 0, side;
+
+    private float timeLeft, seconds;
+
     public int Skin
     {
         get { return skin; }
         set { skin = value; }
     }
 
-    public int coinCount;
-    private int spawnCoinCounter;
-    private int deathCount;
-
-    public int currentSkinIndex = 0;
-    public int skinAvailability = 0;
-
-   // bool spawned;
-    float seconds;
-    int side;
-
-	// Use this for initialization
 	void Awake () {
-        //PlayerPrefs.SetInt("coins", 0);
-        //PlayerPrefs.SetInt("position", 1000);
-        //PlayerPrefs.SetFloat("highscore",0);
         shopActive = false;
         rightSide = true;
         gameOver = true;
@@ -86,7 +60,6 @@ public class GameControllerScript : MonoBehaviour {
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
 
-       // ResetSaves();
         Load();
         SpawnSkins();
         ChangeSkin(currentSkinIndex);
@@ -94,7 +67,6 @@ public class GameControllerScript : MonoBehaviour {
         Application.targetFrameRate = 600;
     }
 	
-	// Update is called once per frame
 	void Update () {
         coinText.text = PlayerPrefs.GetInt("Coins").ToString();
             
@@ -134,40 +106,9 @@ public class GameControllerScript : MonoBehaviour {
 		
 	}
 
-    public void SetGameOver(bool over)
-    {
-        gameOver = over;
-    }
-
-    public bool GetGameOver()
-    {
-        return gameOver;
-    }
-
-    public void SetEndMenu(bool endMenubool)
-    {
-        endMenu = endMenubool;
-    }
-    public bool GetEndMenuBool()
-    {
- 
-        return endMenu;
-    }
-    public bool GetRightSideBool()
-    {
-        return rightSide;
-    }
-    public int GetCoinAmount()
-    {
-        return coinCount;
-    }
     public void AddCoin(int coin)
     {
         coinCount += coin;
-    }
-    public int GetSpawnCoinCounter()
-    {
-        return spawnCoinCounter;
     }
     public void SetSpawnCoinCounter()
     {
@@ -181,31 +122,10 @@ public class GameControllerScript : MonoBehaviour {
         deathCount ++;
         Debug.Log("deathCount: " + deathCount);
     }
-    public int GetDeathCount()
-    {
-        return deathCount;
-    }
-
-    public bool GetToSpawn()
-    {
-        return toSpawn;
-    }
-
-    public void SetToSpawn(bool spawn)
-    {
-        toSpawn = spawn;
-    }
-    public void SetShopState(bool active)
-    {
-        shopActive = active;
-
-    }
 
     private void ChangeSkin(int index)
     {
         GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite = skins[index];
-
-
     }
     public void SetCurrentSkinIndex(int index)
     {

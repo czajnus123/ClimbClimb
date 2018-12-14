@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 
-    private GameObject posRight;
-    private GameObject posLeft;
-    private GameControllerScript gameController;
+    private GameObject posRight, posLeft;
+
     private SaveScript saveManager;
     private Touch touch;
-
-    public bool rightSide;
-    private bool left;
-    private bool leftSlam;
-    private bool rightSlam;
-    bool tapped;
-
     public Sprite[] skins;
     public Material[] trails;
+
+    public bool rightSide;
+    private bool left, leftSlam, rightSlam, tapped;
+
+
 
 	// Use this for initialization
 	void Start () {
         
-        rightSide = GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide;
-        gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
+        rightSide = GameControllerScript.Instance.rightSide;
         saveManager = GameObject.Find("SaveManager").GetComponent<SaveScript>();
         left = false;
         tapped = false;
@@ -32,24 +28,17 @@ public class PlayerScript : MonoBehaviour {
 
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
-
-       /* gameController.Skin = Random.Range(0, 9);
-        GetComponent<SpriteRenderer>().sprite = skins[gameController.Skin];*/
-        //GetComponent<TrailRenderer>().material = trails[gameController.Skin];
-
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (gameController.GetGameOver() == false)
+        if (GameControllerScript.Instance.gameOver== false)
         {
             if (Input.touchCount > 0)
             {
                 touch = Input.GetTouch(0);
             }
-
-                 
                 if (touch.phase == TouchPhase.Began)
                 {
                     tapped = true;
@@ -67,7 +56,7 @@ public class PlayerScript : MonoBehaviour {
                         GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Play();
                     }
 
-                    GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = false;
+                    GameControllerScript.Instance.rightSide = false;
                     }
                     else if (rightSide == false)
                     {
@@ -81,7 +70,7 @@ public class PlayerScript : MonoBehaviour {
                         GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Play();
                     }
 
-                    GameObject.Find("mainObject").GetComponent<GameControllerScript>().rightSide = true;
+                    GameControllerScript.Instance.rightSide = true;
                     }
                     if (gameObject.transform.position == posLeft.transform.position)
                     {
@@ -95,9 +84,6 @@ public class PlayerScript : MonoBehaviour {
                     }
                 }
             }
-
-        
-		
 	}
 
     IEnumerator LeftSlamCounter()
@@ -121,17 +107,17 @@ public class PlayerScript : MonoBehaviour {
     {
         if (collision.gameObject.tag != "Coin")
         {
-            gameController.SetDeathCount();
+            GameControllerScript.Instance.SetDeathCount();
         }
-        if (gameController.GetDeathCount() > 1)
+        if (GameControllerScript.Instance.deathCount > 1)
         {
             Destroy(gameObject);
         }
             GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
             GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(false);
 
-        gameController.SetGameOver(true);
-            gameController.SetEndMenu(true);
+        GameControllerScript.Instance.gameOver=true;
+            GameControllerScript.Instance.endMenu=true;
             saveManager.Save();
             try
             {
@@ -143,10 +129,6 @@ public class PlayerScript : MonoBehaviour {
             {
                 Destroy(collision.gameObject);
             }
-
-
-
-
     }
 
     public bool GetRightSidePlayer()

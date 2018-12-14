@@ -5,15 +5,9 @@ using TMPro;
 
 public class PointManagerScript : MonoBehaviour {
 
-    //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro scoreText
-    //W tym miejscu trzeba stworzyc publiczna zmienną z textem: public TextMeshPro hiScoreText
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI coinText;
-    public TextMeshProUGUI positionText;
+    public TextMeshProUGUI scoreText, coinText, positionText;
 
-    public float scoreCount; // aktualny wynik
-    public float hiScoreCount;
-    public float pointsPerSecond;
+    public float scoreCount, hiScoreCount, pointsPerSecond;
 
     private int coinCount;
 
@@ -21,20 +15,17 @@ public class PointManagerScript : MonoBehaviour {
 
     int temp;
 
-    GameControllerScript gameController;
-
 	// Use this for initialization
 	void Start () {
        
         coinCount = 0;
-        gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (gameController.GetGameOver() == false)
+        if (GameControllerScript.Instance.gameOver == false)
         {
             
             scoreCount += pointsPerSecond * Time.deltaTime;
@@ -46,14 +37,11 @@ public class PointManagerScript : MonoBehaviour {
             }
 
             scoreText.text = Mathf.Round(scoreCount).ToString();
-            //coinText.text = gameController.GetCoinAmount().ToString();
             coinText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
             positionText.text ="#" + PlayerPrefs.GetInt("position", 1000).ToString();
-            //W tym miejscu zrobic staly update textu od hiScore: hiScoreText.text=hiscoreCount.Mathf.Round(hiScoreCount)
 
-            if (gameController.GetGameOver() == true && gameController.GetEndMenuBool() == true)
+            if (GameControllerScript.Instance.gameOver== true && GameControllerScript.Instance.endMenu == true)
             {
-                //Zapis highscore do pliku
                 PlayerPrefs.SetFloat("highscore", hiScoreCount);
             }
         }
