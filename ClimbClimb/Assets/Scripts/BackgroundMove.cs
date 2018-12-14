@@ -6,10 +6,7 @@ public class BackgroundMove : MonoBehaviour {
 
     private int type;
 
-    private GameObject stars1;
-    private GameObject stars2;
-    private GameObject stars3;
-    private GameControllerScript gameController;
+    private GameObject stars1, stars2,stars3;
     private Vector2 startPosition;
 
     // Use this for initialization
@@ -18,7 +15,6 @@ public class BackgroundMove : MonoBehaviour {
         stars1 = GameObject.Find("Stars");
         stars2 = GameObject.Find("Stars2");
         stars3 = GameObject.Find("Stars3");
-        gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
         startPosition = stars1.transform.position;
 
         type = 0;
@@ -49,7 +45,7 @@ public class BackgroundMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (gameController.GetGameOver() == false)
+        if (GameControllerScript.Instance.gameOver== false)
         {
             transform.Translate(Vector3.down * .2f * Time.deltaTime);
 

@@ -4,38 +4,15 @@ using UnityEngine;
 
 public class SpawnManagerScript : MonoBehaviour {
 
-    private int obstacleType;
-    private float seconds;
-    private float coinSeconds;
-    private float points;
-    private float side;
+    private int obstacleType, leftCount, rightCount;
+    private float seconds, coinSeconds, points, side, sideCam;
 
-    private bool toSpawn;
-    private bool toSpawnCoin;
-    private bool changeSpawnCounter;
-    private bool spawnBasic;
-    private bool spawnTunnel;
-    private bool camSwithced;
-    private bool zeroed = false;
-    private bool rotated = false;
-    private bool rotatingCamera;
-
-    private int leftCount;
-    private int rightCount;
-    private float sideCam;
+    private bool toSpawn, toSpawnCoin, changeSpawnCounter, spawnBasic, spawnTunnel, 
+        camSwithced, zeroed = false, rotated = false, rotatingCamera;
 
 
-    public GameObject spawnRight;
-    public GameObject spawnLeft;
-    public GameObject spawnMid;
-    public GameObject basicObstacle;
-    public GameObject tunnelRightObstacle;
-    public GameObject tunnelLeftObstacle;
-    public GameObject coin;
-    public GameObject spawnLightLeftPos;
-    public GameObject spawnLightRightPos;
-    public GameObject lightningPrefab;
-    public GameObject camera;
+    public GameObject spawnRight, spawnLeft, spawnMid, basicObstacle, tunnelRightObstacle, tunnelLeftObstacle, coin, spawnLightLeftPos,
+        spawnLightRightPos, lightningPrefab, camera;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
@@ -50,7 +27,7 @@ public class SpawnManagerScript : MonoBehaviour {
         leftCount = 0;
         rightCount = 0;
 
-        gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
+        gameController = GameControllerScript.Instance;
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
 
         toSpawn = true;
@@ -67,9 +44,9 @@ public class SpawnManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (gameController.GetGameOver() == false)
+        if (gameController.gameOver == false)
         {
-            if (gameController.GetToSpawn() == true)
+            if (gameController.toSpawn == true)
             {
                 switch (obstacleType)
                 {
@@ -91,12 +68,6 @@ public class SpawnManagerScript : MonoBehaviour {
                         break;
                         
                 }
-                /*if (!FindByTag("Tunnel") && !FindByTag("Obstacle"))
-                    {
-                        obstacleType = 0;
-                    //StartCoroutine("SpawnLightning");
-                    }
-                }*/
             }
             if (toSpawnCoin == true)
             {
@@ -135,7 +106,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
     void SpawnBasic()
     {
-        gameController.SetToSpawn(false);
+        gameController.toSpawn=false;
         side = Mathf.Round(Random.RandomRange(0f, 1f));
         if (leftCount >2)
         {
@@ -164,7 +135,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
     void SpawnTunnel()
     {
-        gameController.SetToSpawn(false);
+        gameController.toSpawn=false;
         side = Mathf.Round(Random.RandomRange(0f, 1f));
 
         if (side == 0)
@@ -228,23 +199,6 @@ public class SpawnManagerScript : MonoBehaviour {
         toSpawnCoin = true;
     }
 
-   /* IEnumerator SpawnLightning()
-    {
-        toSpawn = false;
-        seconds = Random.RandomRange(.8f, 1.5f);
-        yield return new WaitForSeconds(seconds);
-        if (gameController.GetRightSideBool() == true)
-        {
-            Instantiate(lightningPrefab, new Vector2(spawnLightRightPos.transform.position.x, spawnLightRightPos.transform.position.y), Quaternion.identity);
-        }
-        else
-        {
-            Instantiate(lightningPrefab, new Vector2(spawnLightLeftPos.transform.position.x, spawnLightLeftPos.transform.position.y), Quaternion.identity);
-        }
-        toSpawn = true;
-
-
-    }*/
 
     private bool FindByTag(string tag)
     {

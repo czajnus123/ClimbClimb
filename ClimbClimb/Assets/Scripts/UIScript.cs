@@ -7,23 +7,13 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class UIScript : MonoBehaviour {
-    public TextMeshProUGUI highScoreText;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI restartCountText;
-    public TextMeshProUGUI shopCoins;
+    public TextMeshProUGUI highScoreText, scoreText, restartCountText, shopCoins;
 
 
-    public GameObject ADCountCircle;
-    public GameObject shopBackground;
-    public GameObject shopUI;
-    public GameObject noAdsButton;
-    public GameObject texts;
-    public GameObject shopButton;
-    public GameObject shopBg;
+    public GameObject ADCountCircle, shopBackground, shopUI, noAdsButton, texts, shopButton, shopBg;
     public InfiniteScrollScript infScript;
 
-    private int highScore;
-    private int score;
+    private int highScore, score;
     private float time;
 
     public bool startRestartCount;
@@ -32,29 +22,29 @@ public class UIScript : MonoBehaviour {
     GameControllerScript gameController;
     AdManager adManager;
     // Use this for initialization
-    void Start () {
+    void Awake () {
         time = 3;
         startRestartCount = false;
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
-        gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
+        gameController = GameControllerScript.Instance;
         adManager = GameObject.Find("mainObject").GetComponent<AdManager>();
         infScript = shopBg.GetComponent<InfiniteScrollScript>();
-        shopCoins.text = GameControllerScript.Instance.coinCount.ToString();
+        shopCoins.text = gameController.coinCount.ToString();
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        shopCoins.text = GameControllerScript.Instance.coinCount.ToString();
+        shopCoins.text = gameController.coinCount.ToString();
         highScore = (int)PlayerPrefs.GetFloat("highscore", 0);
         highScoreText.text = "Best: " +highScore.ToString();
 
         score = (int)pointManager.GetPoints();
         scoreText.text = score.ToString();
 
-        if (gameController.GetGameOver() == true)
+        if (gameController.gameOver == true)
         {
-            if (gameController.GetEndMenuBool() == true)
+            if (gameController.endMenu == true)
             {
 
                 ADCountCircle.GetComponent<Image>().fillAmount = ADCountCircle.GetComponent<Image>().fillAmount - .2f * Time.deltaTime;
@@ -70,7 +60,7 @@ public class UIScript : MonoBehaviour {
                 {
                     restartCountText.text = "";
                     GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(true);
-                    gameController.SetGameOver(false);
+                    gameController.gameOver=false;
                     startRestartCount = false;
                 }
             }
@@ -101,20 +91,21 @@ public class UIScript : MonoBehaviour {
         noAdsButton.SetActive(false);
         shopButton.SetActive(false);
         shopBackground.SetActive(true);
-        gameController.SetShopState(true);
+        gameController.shopActive=true;
+        GameObject.Find("SPlayer").GetComponent<SpriteRenderer>().sprite = GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite;
     }
     public void HideShop()
     {
         GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite = GameObject.Find("SPlayer").GetComponent<SpriteRenderer>().sprite;
         PlayerPrefs.SetString("skin", GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite.ToString());
-        PlayerPrefs.SetInt("CurrentSkin", GameControllerScript.Instance.currentSkinIndex);
+        PlayerPrefs.SetInt("CurrentSkin", gameController.currentSkinIndex);
        // PlayerPrefs.SetInt("CurrentSkin", )
         texts.SetActive(true);
         shopUI.SetActive(false);
         noAdsButton.SetActive(true);
         shopButton.SetActive(true);
         shopBackground.SetActive(false);
-        gameController.SetShopState(false);
+        gameController.shopActive=false;
     }
 
     public void ExitGame()
@@ -132,7 +123,7 @@ public class UIScript : MonoBehaviour {
         Sprite s= EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite;
         for (int i=0; i < GameControllerScript.Instance.skins.Length; i++)
         {
-            if (EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite.name == GameControllerScript.Instance.skins[i].name)
+            if (s.name == GameControllerScript.Instance.skins[i].name)
                 GameControllerScript.Instance.currentSkinIndex = i;
         }
 
@@ -156,7 +147,7 @@ public class UIScript : MonoBehaviour {
             {
                 GameControllerScript.Instance.skinAvailability += 1 << r;
             }
-            var sname=GameControllerScript.Instance.skins[r].name;
+            var sname= GameControllerScript.Instance.skins[r].name;
             Debug.Log(sname);
             var ob = GameObject.Find("Content");
             for(int i = 0; i < GameControllerScript.Instance.skins.Length; i++)
@@ -171,7 +162,7 @@ public class UIScript : MonoBehaviour {
     }
     public void ResetPlayerPrefs()
     {
-        GameControllerScript.Instance.ResetSaves();
+        gameController.ResetSaves();
         Application.Quit();
     }
 }

@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class AIScript : MonoBehaviour {
 
-    private GameObject player;
-    private GameObject posRight;
-    private GameObject posLeft;
-    private GameControllerScript gameController;
+    private GameObject player, posRight, posLeft;
 
     private float speed = 0;
     private bool wyprzedzoned = false;
@@ -22,13 +19,12 @@ public class AIScript : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
-        gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
         GetComponent<SpriteRenderer>().sprite = player.GetComponent<PlayerScript>().skins[Random.Range(0, player.GetComponent<PlayerScript>().skins.Length - 1)];
     }
 
     private void Update()
     {
-        if (gameController.GetGameOver() == false)
+        if (GameControllerScript.Instance.gameOver==false)
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
             if (gameObject.transform.position.y < player.transform.position.y && !wyprzedzoned)
@@ -37,7 +33,7 @@ public class AIScript : MonoBehaviour {
              PlayerPrefs.SetInt("position", PlayerPrefs.GetInt("position", 1000) - 1);
             }
         }
-        else if(gameController.GetGameOver() && speed>0)
+        else if(GameControllerScript.Instance.gameOver && speed>0)
         {
             Destroy(gameObject);
         }

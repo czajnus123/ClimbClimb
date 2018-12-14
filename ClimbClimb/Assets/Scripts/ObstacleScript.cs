@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObstacleScript : MonoBehaviour {
 
-    private GameControllerScript gameController;
     private float speed=1f;
     bool spawned;
 
@@ -25,11 +24,9 @@ public class ObstacleScript : MonoBehaviour {
         speed+= (float) (.05f* GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints());
         if (speed > 20) speed = 20;
 
-        gameController = GameObject.Find("mainObject").GetComponent<GameControllerScript>();
+        GameControllerScript.Instance.SetSpawnCoinCounter();
 
-        gameController.SetSpawnCoinCounter();
-
-        if (gameController.GetSpawnCoinCounter() >= 10)
+        if (GameControllerScript.Instance.spawnCoinCounter >= 10)
         {
             try
             {
@@ -45,24 +42,24 @@ public class ObstacleScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (gameController.GetGameOver() == false)
+        if (GameControllerScript.Instance.gameOver == false)
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
             if (spawned == false)
             {
                 if (gameObject.tag=="Obstacle" && gameObject.transform.position.y <= GameObject.Find("spawnTrigger").transform.position.y)
                 {
-                    gameController.SetToSpawn(true);
+                    GameControllerScript.Instance.toSpawn=true;
                     spawned = true;
                 }
                 if (gameObject.tag == "Tunnel" && gameObject.transform.position.y <= GameObject.Find("spawnTriggerT").transform.position.y)
                 {
-                    gameController.SetToSpawn(true);
+                    GameControllerScript.Instance.toSpawn=true;
                     spawned = true;
                 }
             }
         }
-        else if (gameController.GetDeathCount()>1)
+        else if (GameControllerScript.Instance.deathCount>1)
         {
            Destroy(gameObject);
         }
