@@ -21,7 +21,7 @@ public class GameControllerScript : MonoBehaviour {
 
     public bool rightSide, gameOver, endMenu, toSpawn, shopActive;
 
-    public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0;
+    public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0, midLeft = 0, midRight = 0;
 
     private int skin = 0, side;
 

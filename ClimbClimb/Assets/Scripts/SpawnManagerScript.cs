@@ -12,7 +12,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
 
     public GameObject spawnRight, spawnLeft, spawnMid, basicObstacle, tunnelRightObstacle, tunnelLeftObstacle, coin, spawnLightLeftPos,
-        spawnLightRightPos, lightningPrefab, camera;
+        spawnLightRightPos, lightningPrefab, camera, obstacleMid;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
@@ -66,6 +66,9 @@ public class SpawnManagerScript : MonoBehaviour {
                             SpawnBasic();
                         }
                         break;
+                    case 3:
+                        SpawnMiddleOb();
+                        break;
                         
                 }
             }
@@ -96,12 +99,18 @@ public class SpawnManagerScript : MonoBehaviour {
                 else
                 {
                     points = pointManager.GetPoints();
-                    var ob = Random.Range(0f, 3f);
+                    var ob = Random.Range(0f, 4f);
                     obstacleType = (int)ob;
                 }
                 
             }
         }
+    }
+    void SpawnMiddleOb()
+    {
+        gameController.toSpawn = false;
+        Instantiate(obstacleMid, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
+
     }
 
     void SpawnBasic()
