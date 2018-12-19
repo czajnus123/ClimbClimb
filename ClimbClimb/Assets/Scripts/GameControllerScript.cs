@@ -13,17 +13,19 @@ public class GameControllerScript : MonoBehaviour {
     public TextMeshProUGUI coinText;
 
     public GameObject playerPrefab, oponentPrefab, spawnPlayerPos, posLeft, leftWall, rightWall, spawnObstacleRight, spawnObstacleLeft,
-        spawnLightLeft, spawnLightRight, background, background2, content;
+        spawnLightLeft, spawnLightRight, background, background2, content,player;
 
     public Sprite[] skins;
     public Button basicButton;
     private Color targetColor;
 
-    public bool rightSide, gameOver, endMenu, toSpawn, shopActive;
+    public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check;
 
     public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0, midLeft = 0, midRight = 0;
 
     private int skin = 0, side;
+
+    public float speed;
 
     private float timeLeft, seconds;
 
@@ -39,6 +41,7 @@ public class GameControllerScript : MonoBehaviour {
         gameOver = true;
         endMenu = false;
         toSpawn = true;
+        check = true;
         coinCount = 0;
         deathCount = 0;
         currentSkinIndex = 0;
@@ -47,10 +50,10 @@ public class GameControllerScript : MonoBehaviour {
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
         posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/2
-            + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2),posLeft.transform.position.y);
+            + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/5),posLeft.transform.position.y);
 
         spawnPlayerPos.transform.position= new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
-            - playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/2), spawnPlayerPos.transform.position.y);
+            - playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/5), spawnPlayerPos.transform.position.y);
 
         spawnObstacleLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnObstacleLeft.transform.position.y);
         spawnObstacleRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnObstacleRight.transform.position.y);
@@ -60,6 +63,8 @@ public class GameControllerScript : MonoBehaviour {
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
 
+        player = GameObject.Find("Player(Clone)");
+
         Load();
         SpawnSkins();
         ChangeSkin(currentSkinIndex);
@@ -67,7 +72,8 @@ public class GameControllerScript : MonoBehaviour {
         Application.targetFrameRate = 600;
     }
 	
-	void Update () {
+	void Update ()
+    {
         coinText.text = PlayerPrefs.GetInt("Coins").ToString();
             
             if (Input.touchCount > 0 && gameOver == true && endMenu == false && Input.touches[0].phase==TouchPhase.Began&&shopActive==false)
@@ -103,8 +109,76 @@ public class GameControllerScript : MonoBehaviour {
                 timeLeft -= Time.deltaTime;
             }
         }
+
+        if (check == true)
+        {
+            SetPlayerMovingEffect();
+            check = false;
+        }
 		
 	}
+    public void SetPlayerMovingEffect()
+    {
+        switch (currentSkinIndex)
+        {
+            case 0:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+            case 1:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+            case 2:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+            case 3:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+            case 4:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+            case 5:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+
+        }
+    }
+
 
     public void AddCoin(int coin)
     {

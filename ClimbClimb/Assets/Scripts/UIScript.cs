@@ -93,6 +93,7 @@ public class UIScript : MonoBehaviour {
         shopBackground.SetActive(true);
         gameController.shopActive=true;
         GameObject.Find("SPlayer").GetComponent<SpriteRenderer>().sprite = GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite;
+
     }
     public void HideShop()
     {
@@ -106,6 +107,7 @@ public class UIScript : MonoBehaviour {
         shopButton.SetActive(true);
         shopBackground.SetActive(false);
         gameController.shopActive=false;
+        GameControllerScript.Instance.check = true;
     }
 
     public void ExitGame()

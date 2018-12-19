@@ -16,18 +16,18 @@ public class ObstacleScript : MonoBehaviour {
         rightCount = 0;
         if (gameObject.tag == "Obstacle")
         {
-            speed = 7f;
+            GameControllerScript.Instance.speed = 5f;
             if (GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints() * .1f < 13)
                 gameObject.transform.Find("Obstacle").gameObject.transform.localScale += new Vector3((float)(.1f * GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints()), 0, 0);
             else
                 gameObject.transform.Find("Obstacle").gameObject.transform.localScale += new Vector3(13, 0, 0);
         }
-        else if (gameObject.tag == "Tunnel") speed = 4f;
+        else if (gameObject.tag == "Tunnel") GameControllerScript.Instance.speed = 5f;
         else if (gameObject.tag == "Coin") speed = 2f;
-        else if (gameObject.tag == "ObstacleM") speed = 5f;
-        
-        speed+= (float) (.05f* GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints());
-        if (speed > 20) speed = 20;
+        else if (gameObject.tag == "ObstacleM") GameControllerScript.Instance.speed = 5f;
+
+        GameControllerScript.Instance.speed += (float) (.05f* GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints());
+        if (GameControllerScript.Instance.speed > 20) GameControllerScript.Instance.speed = 20;
 
         GameControllerScript.Instance.SetSpawnCoinCounter();
 
@@ -49,7 +49,12 @@ public class ObstacleScript : MonoBehaviour {
 	void Update () {
         if (GameControllerScript.Instance.gameOver == false)
         {
-            transform.Translate(Vector3.down * speed * Time.deltaTime);
+            if(gameObject.tag!="Coin")
+            transform.Translate(Vector3.down * GameControllerScript.Instance.speed * Time.deltaTime);
+            else
+            {
+                transform.Translate(Vector3.down * speed * Time.deltaTime);
+            }
             if (spawned == false)
             {
                 if (gameObject.tag=="Obstacle" && gameObject.transform.position.y <= GameObject.Find("spawnTrigger").transform.position.y)
