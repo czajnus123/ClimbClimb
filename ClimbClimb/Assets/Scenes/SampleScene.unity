@@ -4062,6 +4062,8 @@ MonoBehaviour:
   lightningPrefab: {fileID: 1920708222011746, guid: 1182d2cead7639146928b98aca97f604,
     type: 2}
   camera: {fileID: 534669902}
+  obstacleMid: {fileID: 1618379054192192, guid: 0c4bef914cfe6324295f9a58b40eb925,
+    type: 2}
 --- !u!4 &1339273527
 Transform:
   m_ObjectHideFlags: 0
@@ -4122,15 +4124,15 @@ MonoBehaviour:
   background2: {fileID: 1893959217}
   content: {fileID: 70751555}
   skins:
-  - {fileID: 21300000, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300002, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300004, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300006, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300008, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300010, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300012, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300014, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
-  - {fileID: 21300016, guid: a7beb5c646127e8499b03e506f6e2598, type: 3}
+  - {fileID: 21300000, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300002, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300004, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300006, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300008, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300010, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300012, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300014, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
+  - {fileID: 21300016, guid: 34c3931b58319ad4ba9912ee2072c921, type: 3}
   basicButton: {fileID: 114895970206204150, guid: 0f6064b0c4cf8674fbbe787e7fa9e2c8,
     type: 2}
   rightSide: 0
@@ -4143,6 +4145,8 @@ MonoBehaviour:
   deathCount: 0
   currentSkinIndex: 0
   skinAvailability: 0
+  midLeft: 0
+  midRight: 0
 --- !u!114 &1359569002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5362,6 +5366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1819346364}
   - component: {fileID: 1819346365}
+  - component: {fileID: 1819346366}
   m_Layer: 0
   m_Name: SPlayer
   m_TagString: Untagged
@@ -5378,7 +5383,7 @@ Transform:
   m_GameObject: {fileID: 1819346363}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 50, z: -12900}
-  m_LocalScale: {x: 300, y: 300, z: 142.22224}
+  m_LocalScale: {x: 300, y: 300, z: 142.2222}
   m_Children: []
   m_Father: {fileID: 1530379685}
   m_RootOrder: 8
@@ -5430,6 +5435,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1819346366
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1819346363}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc5734f6e5e0d3b4b88b466afca7b18b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1825085393
 GameObject:
   m_ObjectHideFlags: 0
