@@ -11,14 +11,14 @@ public class PlayerScript : MonoBehaviour {
     public Sprite[] skins;
     public Material[] trails;
 
-    public bool rightSide;
+    public bool rightSide,check;
     private bool left, leftSlam, rightSlam, tapped;
 
 
 
 	// Use this for initialization
 	void Start () {
-        
+
         rightSide = GameControllerScript.Instance.rightSide;
         saveManager = GameObject.Find("SaveManager").GetComponent<SaveScript>();
         left = false;

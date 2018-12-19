@@ -175,6 +175,33 @@ public class GameControllerScript : MonoBehaviour {
                         player.transform.GetChild(i).gameObject.SetActive(false);
                 }
                 break;
+            case 6:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+            case 7:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
+            case 8:
+                for (int i = 0; i < player.transform.childCount - 2; i++)
+                {
+                    if (i == currentSkinIndex)
+                        player.transform.GetChild(i).gameObject.SetActive(true);
+                    else
+                        player.transform.GetChild(i).gameObject.SetActive(false);
+                }
+                break;
 
         }
     }
