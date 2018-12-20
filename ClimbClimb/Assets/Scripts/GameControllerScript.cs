@@ -121,90 +121,12 @@ public class GameControllerScript : MonoBehaviour {
 	}
     public void SetPlayerMovingEffect()
     {
-        switch (currentSkinIndex)
+        for (int i = 0; i < player.transform.childCount - 2; i++)
         {
-            case 0:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 1:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 2:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 3:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 4:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 5:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 6:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 7:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-            case 8:
-                for (int i = 0; i < player.transform.childCount - 2; i++)
-                {
-                    if (i == currentSkinIndex)
-                        player.transform.GetChild(i).gameObject.SetActive(true);
-                    else
-                        player.transform.GetChild(i).gameObject.SetActive(false);
-                }
-                break;
-
+            if (i == currentSkinIndex)
+                player.transform.GetChild(i).gameObject.SetActive(true);
+            else
+                player.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
 
@@ -282,5 +204,8 @@ public class GameControllerScript : MonoBehaviour {
     public void ResetSaves()
     {
         PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("SkinAvailability", 1);
+        PlayerPrefs.SetInt("CurrentSkin", 0);
+        PlayerPrefs.SetInt("Coins", 0);
     }
 }

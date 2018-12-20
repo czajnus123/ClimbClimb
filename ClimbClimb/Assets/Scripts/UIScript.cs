@@ -122,6 +122,7 @@ public class UIScript : MonoBehaviour {
 
     public void SetPlayerSkin()
     {
+        var si = GameControllerScript.Instance.currentSkinIndex;
         Sprite s= EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite;
         for (int i=0; i < GameControllerScript.Instance.skins.Length; i++)
         {
@@ -133,6 +134,10 @@ public class UIScript : MonoBehaviour {
         {
             GameObject.Find("SPlayer").GetComponent<SpriteRenderer>().sprite = s;
             Debug.Log(1 << GameControllerScript.Instance.currentSkinIndex);
+        }
+        else
+        {
+            GameControllerScript.Instance.currentSkinIndex = si;
         }
     }
 
