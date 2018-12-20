@@ -141,7 +141,7 @@ public class UIScript : MonoBehaviour {
         if (GameControllerScript.Instance.coinCount >= 10)
         {
             GameControllerScript.Instance.coinCount -= 10;
-            int r = Random.RandomRange(1, GameControllerScript.Instance.skins.Length - 1);
+            int r = Random.RandomRange(1, GameControllerScript.Instance.skins.Length);
             if ((GameControllerScript.Instance.skinAvailability & 1 << r) == 1 << r)
             {
             }

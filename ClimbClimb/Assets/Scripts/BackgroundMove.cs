@@ -47,7 +47,7 @@ public class BackgroundMove : MonoBehaviour {
 
         if (GameControllerScript.Instance.gameOver== false)
         {
-            transform.Translate(Vector3.down * .2f * Time.deltaTime);
+            transform.Translate(Vector3.down * .5f * Time.deltaTime);
 
             if (gameObject.transform.position.y <= startPosition.y - stars1.GetComponent<SpriteRenderer>().bounds.size.y)
             {
