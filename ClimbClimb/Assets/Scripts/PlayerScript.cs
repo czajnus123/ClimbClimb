@@ -105,7 +105,7 @@ public class PlayerScript : MonoBehaviour {
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Coin")
+        if (collision.gameObject.tag != "Coin"&&collision.gameObject.tag!="ObstacleClone")
         {
             GameControllerScript.Instance.SetDeathCount();
         }

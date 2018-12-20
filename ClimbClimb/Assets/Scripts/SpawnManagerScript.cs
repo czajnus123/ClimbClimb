@@ -12,7 +12,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
 
     public GameObject spawnRight, spawnLeft, spawnMid, basicObstacle, tunnelRightObstacle, tunnelLeftObstacle, coin, spawnLightLeftPos,
-        spawnLightRightPos, lightningPrefab, camera, obstacleMid;
+        spawnLightRightPos, lightningPrefab, camera, obstacleMid,basicObstacleObj;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
@@ -132,12 +132,43 @@ public class SpawnManagerScript : MonoBehaviour {
         if (side == 0)
         {
             leftCount = leftCount + 1;
-            Instantiate(basicObstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
+            Vector2[] leftVectorTab = {
+                new Vector2(spawnLeft.transform.position.x + basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.x, spawnLeft.transform.position.y),
+                new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y+basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
+                                new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y-basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
+            };
+            GameObject gp= Instantiate(basicObstacle, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
+            GameObject go1= Instantiate(basicObstacleObj, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
+            go1.transform.parent = gp.transform;
+            int los = Random.RandomRange(1, leftVectorTab.Length+1); 
+            Debug.Log(los+ "   0 right, 1up,2down");
+            for (int i = 0; i < los; i++)
+            {
+                GameObject go = Instantiate(basicObstacleObj, leftVectorTab[i], Quaternion.identity);
+                go.tag = "ObstacleClone";
+                go.transform.parent = gp.transform;
+            }
+           
         }
         else
         {
             rightCount = rightCount + 1;
-            Instantiate(basicObstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y), Quaternion.identity);
+            Vector2[] rightVectorTab = {
+                new Vector2(spawnRight.transform.position.x -basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.x, spawnLeft.transform.position.y),
+                new Vector2(spawnRight.transform.position.x, spawnLeft.transform.position.y+basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
+                                new Vector2(spawnRight.transform.position.x, spawnLeft.transform.position.y-basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
+            };
+            GameObject gp = Instantiate(basicObstacle, new Vector2(spawnRight.transform.position.x, spawnRight.transform.position.y), Quaternion.identity);
+            GameObject go1 = Instantiate(basicObstacleObj, new Vector2(spawnRight.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
+            go1.transform.parent = gp.transform;
+            int los = Random.RandomRange(1, rightVectorTab.Length + 1); //0 right, 1up,2down
+            Debug.Log(los + "   0 right, 1up,2down");
+            for (int i = 0; i < los; i++)
+            {
+                GameObject go = Instantiate(basicObstacleObj, rightVectorTab[i], Quaternion.identity);
+                go.tag = "ObstacleClone";
+                go.transform.parent = gp.transform;
+            }
         }
 
     }

@@ -20,10 +20,10 @@ public class ObstacleScript : MonoBehaviour {
         level = (int)(pointManager.GetPoints()/10)/2;
         try
         {
-            if (gameObject.tag == "Obstacle")
+            if (gameObject.tag == "Obstacle" || gameObject.tag == "ObstacleClone")
             {
                 GameControllerScript.Instance.speed = 5f;
-                for (int i = 0; i < gameObject.transform.childCount - 1; i++)
+                for (int i = 1; i < gameObject.transform.childCount; i++)
                 {
                     gameObject.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().sprite = GameControllerScript.Instance.BasicObSkins[level];
                 }
@@ -59,7 +59,7 @@ public class ObstacleScript : MonoBehaviour {
 
         GameControllerScript.Instance.SetSpawnCoinCounter();
 
-        if (GameControllerScript.Instance.spawnCoinCounter >= 10)
+        if (GameControllerScript.Instance.spawnCoinCounter >= 10 && gameObject.tag!="ObstacleClone")
         {
             try
             {
