@@ -15,6 +15,7 @@ public class ObstacleScript : MonoBehaviour {
         switched = false;
         leftCount = 0;
         rightCount = 0;
+ 
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
 
         level = (int)(pointManager.GetPoints()/10)/2;
@@ -22,7 +23,7 @@ public class ObstacleScript : MonoBehaviour {
         {
             if (gameObject.tag == "Obstacle" || gameObject.tag == "ObstacleClone")
             {
-                GameControllerScript.Instance.speed = 5f;
+                speed = GameControllerScript.Instance.speed;
                 for (int i = 1; i < gameObject.transform.childCount; i++)
                 {
                     gameObject.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().sprite = GameControllerScript.Instance.BasicObSkins[level];
@@ -30,7 +31,7 @@ public class ObstacleScript : MonoBehaviour {
             }
             else if (gameObject.tag == "Tunnel")
             {
-                GameControllerScript.Instance.speed = 4f;
+                speed = GameControllerScript.Instance.speed - 1;
                 if (pointManager.GetPoints() > 10)
                 {
                     for (int i = 0; i < gameObject.transform.childCount - 1; i++)
@@ -42,7 +43,7 @@ public class ObstacleScript : MonoBehaviour {
             }
             else if (gameObject.tag == "ObstacleM")
             {
-                GameControllerScript.Instance.speed = 5f;
+                speed = GameControllerScript.Instance.speed;
                 for (int i = 0; i < gameObject.transform.childCount - 1; i++)
                 {
                     gameObject.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().sprite = GameControllerScript.Instance.MidObSkins[level];
@@ -54,7 +55,8 @@ public class ObstacleScript : MonoBehaviour {
         }
         catch { }
 
-        GameControllerScript.Instance.speed += (float) (.05f* GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints());
+      //  GameControllerScript.Instance.speed += (float) (.01f* GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints());
+        Debug.Log("speed: " + GameControllerScript.Instance.speed);
         if (GameControllerScript.Instance.speed > 20) GameControllerScript.Instance.speed = 20;
 
         GameControllerScript.Instance.SetSpawnCoinCounter();
@@ -78,7 +80,7 @@ public class ObstacleScript : MonoBehaviour {
         if (GameControllerScript.Instance.gameOver == false)
         {
             if(gameObject.tag!="Coin")
-            transform.Translate(Vector3.down * GameControllerScript.Instance.speed * Time.deltaTime);
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
             else
             {
                 transform.Translate(Vector3.down * speed * Time.deltaTime);

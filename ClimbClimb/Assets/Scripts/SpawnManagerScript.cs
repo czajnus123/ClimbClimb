@@ -69,7 +69,6 @@ public class SpawnManagerScript : MonoBehaviour {
                     case 3:
                         SpawnMiddleOb();
                         break;
-                        
                 }
             }
             if (toSpawnCoin == true)

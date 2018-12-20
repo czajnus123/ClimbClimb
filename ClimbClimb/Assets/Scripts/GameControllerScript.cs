@@ -46,6 +46,7 @@ public class GameControllerScript : MonoBehaviour {
         deathCount = 0;
         currentSkinIndex = 0;
         instance = this;
+        speed = 5;
 
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
@@ -94,6 +95,7 @@ public class GameControllerScript : MonoBehaviour {
             }
         if (gameOver == false)
         {
+            speed += .05f * Time.deltaTime;
             if (timeLeft <= Time.deltaTime)
             {
                 background.GetComponent<SpriteRenderer>().material.color = targetColor;
