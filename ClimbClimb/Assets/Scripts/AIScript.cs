@@ -67,9 +67,7 @@ public class AIScript : MonoBehaviour {
         Debug.Log("collision: " + collision.gameObject.tag);
         if (collision.gameObject.tag != "Player")
         {
-
             change_side();
-
         }
             
         if (collision.gameObject.name == "End")
