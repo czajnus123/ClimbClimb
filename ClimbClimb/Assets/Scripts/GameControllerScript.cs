@@ -13,9 +13,9 @@ public class GameControllerScript : MonoBehaviour {
     public TextMeshProUGUI coinText;
 
     public GameObject playerPrefab, oponentPrefab, spawnPlayerPos, posLeft, leftWall, rightWall, spawnObstacleRight, spawnObstacleLeft,
-        spawnLightLeft, spawnLightRight, background, background2, content,player;
+        spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab;
 
-    public Sprite[] skins;
+    public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins;
     public Button basicButton;
     private Color targetColor;
 
@@ -55,8 +55,10 @@ public class GameControllerScript : MonoBehaviour {
         spawnPlayerPos.transform.position= new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
             - playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/5), spawnPlayerPos.transform.position.y);
 
-        spawnObstacleLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnObstacleLeft.transform.position.y);
-        spawnObstacleRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnObstacleRight.transform.position.y);
+        spawnObstacleLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
+            + obstaclePrefab.GetComponent<SpriteRenderer>().bounds.size.x / 4), spawnObstacleLeft.transform.position.y);
+        spawnObstacleRight.transform.position = new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
+            - obstaclePrefab.GetComponent<SpriteRenderer>().bounds.size.x / 4), spawnObstacleLeft.transform.position.y);
         spawnLightLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnLightLeft.transform.position.y);
         spawnLightRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnLightRight.transform.position.y);
 

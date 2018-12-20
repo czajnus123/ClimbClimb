@@ -17,12 +17,12 @@ public class SpawnManagerScript : MonoBehaviour {
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
     private PlayerScript playerScript;
+
     
 
 
 	// Use this for initialization
 	void Start () {
-         
         points = 0;
         leftCount = 0;
         rightCount = 0;

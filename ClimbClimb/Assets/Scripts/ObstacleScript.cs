@@ -6,7 +6,8 @@ public class ObstacleScript : MonoBehaviour {
 
     private float speed=1f;
     bool spawned, switched;
-    int leftCount, rightCount;
+    int leftCount, rightCount,level;
+    PointManagerScript pointManager;
 
 	// Use this for initialization
 	void Start () {
@@ -14,17 +15,44 @@ public class ObstacleScript : MonoBehaviour {
         switched = false;
         leftCount = 0;
         rightCount = 0;
-        if (gameObject.tag == "Obstacle")
+        pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
+
+        level = (int)(pointManager.GetPoints()/10)/2;
+        try
         {
-            GameControllerScript.Instance.speed = 5f;
-            if (GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints() * .1f < 13)
-                gameObject.transform.Find("Obstacle").gameObject.transform.localScale += new Vector3((float)(.1f * GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints()), 0, 0);
-            else
-                gameObject.transform.Find("Obstacle").gameObject.transform.localScale += new Vector3(13, 0, 0);
-        }
-        else if (gameObject.tag == "Tunnel") GameControllerScript.Instance.speed = 5f;
+            if (gameObject.tag == "Obstacle")
+            {
+                GameControllerScript.Instance.speed = 5f;
+                for (int i = 0; i < gameObject.transform.childCount - 1; i++)
+                {
+                    gameObject.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().sprite = GameControllerScript.Instance.BasicObSkins[level];
+                }
+            }
+            else if (gameObject.tag == "Tunnel")
+            {
+                GameControllerScript.Instance.speed = 4f;
+                if (pointManager.GetPoints() > 10)
+                {
+                    for (int i = 0; i < gameObject.transform.childCount - 1; i++)
+                    {
+                        gameObject.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().sprite = GameControllerScript.Instance.TunnelObSkins[level];
+                    }
+                }
+
+            }
+            else if (gameObject.tag == "ObstacleM")
+            {
+                GameControllerScript.Instance.speed = 5f;
+                for (int i = 0; i < gameObject.transform.childCount - 1; i++)
+                {
+                    gameObject.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().sprite = GameControllerScript.Instance.MidObSkins[level];
+                }
+            }
+        
+
         else if (gameObject.tag == "Coin") speed = 2f;
-        else if (gameObject.tag == "ObstacleM") GameControllerScript.Instance.speed = 5f;
+        }
+        catch { }
 
         GameControllerScript.Instance.speed += (float) (.05f* GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints());
         if (GameControllerScript.Instance.speed > 20) GameControllerScript.Instance.speed = 20;
@@ -91,13 +119,15 @@ public class ObstacleScript : MonoBehaviour {
                 if (value < 1)
                 {
                     gameObject.transform.position = Vector2.MoveTowards(new Vector2(gameObject.transform.position.x,gameObject.transform.position.y), 
-                        new Vector2(GameObject.Find("spawnLeft").transform.position.x,gameObject.transform.position.y), 2);
+                        new Vector2(GameObject.Find("spawnLeft").transform.position.x+(gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().bounds.size.x/2)/2
+                        ,gameObject.transform.position.y), 2);
                     GameControllerScript.Instance.midLeft = GameControllerScript.Instance.midLeft + 1;
                 }
                 else
                 {
                     gameObject.transform.position = Vector2.MoveTowards(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y),
-                        new Vector2(GameObject.Find("spawnRight").transform.position.x, gameObject.transform.position.y), 2);
+                        new Vector2(GameObject.Find("spawnRight").transform.position.x- (gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().bounds.size.x / 2)/2
+                        , gameObject.transform.position.y), 2);
                     GameControllerScript.Instance.midRight = GameControllerScript.Instance.midRight + 1;
                 }
                 switched = true;

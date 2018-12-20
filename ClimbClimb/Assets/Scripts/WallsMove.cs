@@ -8,7 +8,7 @@ public class WallsMove : MonoBehaviour {
 
     private GameObject walls1, walls2, walls3;
     private float wallSprite,wallSprite2,wallSprite3;
-    private Vector2 startPosition;
+    private Vector2 startPosition,TwoPosition,ThreePosition;
 
     // Use this for initialization
     void Start()
@@ -21,6 +21,7 @@ public class WallsMove : MonoBehaviour {
         wallSprite2 = walls2.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y;
         wallSprite3 = walls3.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y;
         startPosition = walls1.transform.position;
+
 
         type = 0;
 
@@ -37,14 +38,13 @@ public class WallsMove : MonoBehaviour {
                 break;
             case 2:
                 gameObject.transform.position = new Vector2(walls1.transform.position.x, (walls1.transform.position.y +
-                   wallSprite2));
+                   wallSprite));
                 break;
             case 3:
                 gameObject.transform.position = new Vector2(walls1.transform.position.x, (walls1.transform.position.y +
-                    wallSprite2+wallSprite3));
+                    wallSprite2+wallSprite));
                 break;
         }
-        Debug.Log(gameObject.name + " " + type);
 
     }
 
@@ -60,24 +60,24 @@ public class WallsMove : MonoBehaviour {
                 switch (type)
                 {
                     case 1:
-                    if (gameObject.transform.position.y <= startPosition.y - wallSprite)
+                    if (gameObject.transform.position.y <= startPosition.y - walls1.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y)
                     {
-                        gameObject.transform.position = new Vector2(walls3.transform.position.x, walls3.transform.position.y
-                            + wallSprite);
+                        gameObject.transform.position = new Vector2(walls3.transform.position.x,walls3.transform.position.y+
+                            wallSprite3);
                     }
                         break;
                     case 2:
-                    if (gameObject.transform.position.y <= startPosition.y - wallSprite2)
+                    if (gameObject.transform.position.y <= startPosition.y - walls2.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y)
                     {
-                        gameObject.transform.position = new Vector2(walls1.transform.position.x, walls1.transform.position.y
-                            + wallSprite2);
+                        gameObject.transform.position = new Vector2(walls1.transform.position.x, walls1.transform.position.y +
+                            wallSprite);
                     }
                         break;
                     case 3:
-                    if (gameObject.transform.position.y <= startPosition.y - wallSprite3)
+                    if (gameObject.transform.position.y <= startPosition.y - walls3.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y)
                     {
-                        gameObject.transform.position = new Vector2(walls2.transform.position.x, walls2.transform.position.y
-                            + wallSprite3);
+                        gameObject.transform.position = new Vector2(walls2.transform.position.x, walls2.transform.position.y +
+                            wallSprite2-.2f);
                     }
                         break;
                 }
