@@ -140,10 +140,13 @@ public class SpawnManagerScript : MonoBehaviour {
             GameObject go1= Instantiate(basicObstacleObj, new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
             go1.transform.parent = gp.transform;
             int los = Random.RandomRange(1, leftVectorTab.Length+1); 
-            Debug.Log(los+ "   0 right, 1up,2down");
             for (int i = 0; i < los; i++)
             {
                 GameObject go = Instantiate(basicObstacleObj, leftVectorTab[i], Quaternion.identity);
+                if (i == 0)
+                {
+                    go.GetComponent<BoxCollider2D>().enabled = false;
+                }
                 go.tag = "ObstacleClone";
                 go.transform.parent = gp.transform;
             }
@@ -161,10 +164,13 @@ public class SpawnManagerScript : MonoBehaviour {
             GameObject go1 = Instantiate(basicObstacleObj, new Vector2(spawnRight.transform.position.x, spawnLeft.transform.position.y), Quaternion.identity);
             go1.transform.parent = gp.transform;
             int los = Random.RandomRange(1, rightVectorTab.Length + 1); //0 right, 1up,2down
-            Debug.Log(los + "   0 right, 1up,2down");
             for (int i = 0; i < los; i++)
             {
                 GameObject go = Instantiate(basicObstacleObj, rightVectorTab[i], Quaternion.identity);
+                if (i == 0)
+                {
+                    go.GetComponent<BoxCollider2D>().enabled = false;
+                }
                 go.tag = "ObstacleClone";
                 go.transform.parent = gp.transform;
             }

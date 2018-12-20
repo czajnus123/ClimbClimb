@@ -56,7 +56,6 @@ public class ObstacleScript : MonoBehaviour {
         catch { }
 
       //  GameControllerScript.Instance.speed += (float) (.01f* GameObject.Find("PointManager").GetComponent<PointManagerScript>().GetPoints());
-        Debug.Log("speed: " + GameControllerScript.Instance.speed);
         if (GameControllerScript.Instance.speed > 20) GameControllerScript.Instance.speed = 20;
 
         GameControllerScript.Instance.SetSpawnCoinCounter();
