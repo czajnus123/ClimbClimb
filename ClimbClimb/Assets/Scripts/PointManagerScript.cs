@@ -7,11 +7,12 @@ public class PointManagerScript : MonoBehaviour {
 
     public TextMeshProUGUI scoreText, coinText, positionText;
 
-    public float scoreCount, hiScoreCount, pointsPerSecond;
+    public float scoreCount, hiScoreCount, pointsPerSecond, scoreCountPrevious;
 
     private int coinCount;
 
     public bool scoreIncreasing;
+    bool scoreAnim;
 
     int temp;
 
@@ -19,6 +20,8 @@ public class PointManagerScript : MonoBehaviour {
 	void Start () {
        
         coinCount = 0;
+        scoreCountPrevious = 0;
+        scoreAnim = false;
 
 	}
 	
@@ -27,16 +30,18 @@ public class PointManagerScript : MonoBehaviour {
 
         if (GameControllerScript.Instance.gameOver == false)
         {
-            
-            scoreCount += pointsPerSecond * Time.deltaTime;
+           // scoreCount += pointsPerSecond * Time.deltaTime;
+            if (scoreAnim == false)
+                StartCoroutine(ShowText());
+
             temp += 1;
 
             if (scoreCount > hiScoreCount)
             {
                 hiScoreCount = scoreCount;
             }
+            
 
-            scoreText.text = Mathf.Round(scoreCount).ToString();
             coinText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
             positionText.text ="#" + PlayerPrefs.GetInt("position", 1000).ToString();
 
@@ -47,6 +52,18 @@ public class PointManagerScript : MonoBehaviour {
         }
 		
 	}
+
+    IEnumerator ShowText()
+    {
+        scoreAnim = true;
+
+        yield return new WaitForSeconds(1.0f);
+        scoreText.GetComponent<Animator>().SetTrigger("ShowText");
+        scoreCount += pointsPerSecond;
+        scoreText.text = Mathf.Round(scoreCount).ToString();
+
+        scoreAnim = false;
+    }
 
     public float GetPoints()
     {

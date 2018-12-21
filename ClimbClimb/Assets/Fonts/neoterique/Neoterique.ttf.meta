@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: d5daba3a4ebeaf642861b32b1316f02e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: NEOTERIQUE
+  fontNames:
+  - NEOTERIQUE
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 255cf497f56ec0543857296485e4a047, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

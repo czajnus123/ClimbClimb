@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 3c3c5c121c32eaf42a570e8eb839fce5
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Neo Gen
+  fontNames:
+  - Neo Gen
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1ce685a918bfde444bd955e1a82be71a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

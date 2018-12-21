@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7435c94f8341b7645828a5ad36a22118
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Nautica 3D
+  fontNames:
+  - Nautica 3D
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d27e1009cc576eb4eb6c8f7b3b896aab, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

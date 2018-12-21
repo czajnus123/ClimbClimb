@@ -9,6 +9,7 @@ public class CoinControllerScript : MonoBehaviour {
         {
             //gameController.AddCoin(1);
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 0) + 1);
+            GameObject.Find("CoinCounter").GetComponent<Animator>().SetTrigger("ShowText");
             Destroy(gameObject);
         }
     }
