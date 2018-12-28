@@ -56,11 +56,13 @@ public class PointManagerScript : MonoBehaviour {
     IEnumerator ShowText()
     {
         scoreAnim = true;
+        scoreCount += pointsPerSecond;
+        scoreText.GetComponent<Animator>().SetTrigger("ShowText");
+
+        scoreText.text = Mathf.Round(scoreCount).ToString();
 
         yield return new WaitForSeconds(1.0f);
-        scoreText.GetComponent<Animator>().SetTrigger("ShowText");
-        scoreCount += pointsPerSecond;
-        scoreText.text = Mathf.Round(scoreCount).ToString();
+        
 
         scoreAnim = false;
     }

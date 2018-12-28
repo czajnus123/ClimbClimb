@@ -33,7 +33,7 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (GameControllerScript.Instance.gameOver== false)
+        if (GameControllerScript.Instance.gameOver== false && gameObject.GetComponent<SpriteRenderer>().enabled==true)
         {
             if (Input.touchCount > 0)
             {
@@ -105,30 +105,49 @@ public class PlayerScript : MonoBehaviour {
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        StartCoroutine(Death(collision));
+
         if (collision.gameObject.tag != "Coin"&&collision.gameObject.tag!="ObstacleClone")
         {
             GameControllerScript.Instance.SetDeathCount();
         }
+
+
+       
+            
+    }
+    IEnumerator Death(Collision2D collision)
+    {
+        GameControllerScript.Instance.gameOver = true;
+        GameControllerScript.Instance.endMenu = true;
+        try
+        {
+            GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
+            GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Stop();
+            GameObject.Find("ExplodeParticle").GetComponent<ParticleSystem>().Play();
+            GameObject.Find("ExplodeParticle2").GetComponent<ParticleSystem>().Play();
+
+            Destroy(collision.transform.parent.gameObject);
+
+        }
+        catch
+        {
+            Destroy(collision.gameObject);
+        }
+        yield return new WaitForSeconds(1f);
+
+        GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
+        GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(false);
+        saveManager.Save();
         if (GameControllerScript.Instance.deathCount > 1)
         {
             Destroy(gameObject);
         }
-            GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
-            GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(false);
 
-        GameControllerScript.Instance.gameOver=true;
-            GameControllerScript.Instance.endMenu=true;
-            saveManager.Save();
-            try
-            {
-            GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
-            GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Stop();
-            Destroy(collision.transform.parent.gameObject);
-            }
-            catch
-            {
-                Destroy(collision.gameObject);
-            }
+
     }
 
     public bool GetRightSidePlayer()

@@ -46,7 +46,7 @@ public class UIScript : MonoBehaviour {
         {
             if (gameController.endMenu == true)
             {
-
+                
                 ADCountCircle.GetComponent<Image>().fillAmount = ADCountCircle.GetComponent<Image>().fillAmount - .2f * Time.deltaTime;
                 if (ADCountCircle.GetComponent<Image>().fillAmount <= 0)
                     ADCountCircle.SetActive(false);
@@ -61,6 +61,7 @@ public class UIScript : MonoBehaviour {
                     restartCountText.text = "";
                     GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(true);
                     gameController.gameOver=false;
+                    GameControllerScript.Instance.endMenu = false;
                     startRestartCount = false;
                 }
             }

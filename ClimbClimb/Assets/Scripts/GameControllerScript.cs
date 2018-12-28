@@ -88,7 +88,7 @@ public class GameControllerScript : MonoBehaviour {
                 {
                     GameObject.Find("ShopButton").SetActive(false);
                     GameObject.Find("TapToPlay").SetActive(false);
-                    GameObject.Find("NoAdsButton").SetActive(false);
+                   // GameObject.Find("NoAdsButton").SetActive(false);
                     GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
                 }
             }
@@ -123,7 +123,7 @@ public class GameControllerScript : MonoBehaviour {
 	}
     public void SetPlayerMovingEffect()
     {
-        for (int i = 0; i < player.transform.childCount - 2; i++)
+        for (int i = 0; i < player.transform.childCount - 4; i++)
         {
             if (i == currentSkinIndex)
                 player.transform.GetChild(i).gameObject.SetActive(true);

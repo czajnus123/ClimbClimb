@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class AdManager : MonoBehaviour {
 
@@ -30,6 +32,7 @@ public class AdManager : MonoBehaviour {
 
     public void RewardedAd()
     {
+        GameObject.Find("Circle").GetComponent<Image>().fillAmount = 0;
         if (Advertisement.IsReady("rewardedVideo"))
         {
             Advertisement.Show("rewardedVideo",new ShowOptions() { resultCallback=RewardedAdResult});
@@ -42,6 +45,9 @@ public class AdManager : MonoBehaviour {
         {
             case ShowResult.Finished:
                 GameObject.Find("Panel").SetActive(false);
+                GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().enabled = true;
+
+
                 uiScript.StartRestartCount();
                 break;
             case ShowResult.Skipped:
