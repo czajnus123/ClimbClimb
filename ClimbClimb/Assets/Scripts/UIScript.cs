@@ -103,7 +103,7 @@ public class UIScript : MonoBehaviour {
        // PlayerPrefs.SetInt("CurrentSkin", )
         texts.SetActive(true);
         shopUI.SetActive(false);
-       // noAdsButton.SetActive(true);
+        // noAdsButton.SetActive(true);
         shopButton.SetActive(true);
         shopBackground.SetActive(false);
         gameController.shopActive=false;
