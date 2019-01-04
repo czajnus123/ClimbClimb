@@ -86,23 +86,6 @@ public class PlayerScript : MonoBehaviour {
             }
 	}
 
-    IEnumerator LeftSlamCounter()
-    {
-        leftSlam = true;
-        yield return new WaitForSeconds(.1f);
-        gameObject.transform.Find("LeftSlam").gameObject.SetActive(false);
-        leftSlam = false;
-
-    }
-
-    IEnumerator RightSlamCounter()
-    {
-        rightSlam = true;
-        yield return new WaitForSeconds(.1f);
-        gameObject.transform.Find("RightSlam").gameObject.SetActive(false);
-        rightSlam = false;
-
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
