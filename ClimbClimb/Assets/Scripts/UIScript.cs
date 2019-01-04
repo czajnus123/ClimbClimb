@@ -58,6 +58,7 @@ public class UIScript : MonoBehaviour {
                 restartCountText.text = Mathf.Round(time).ToString();
                 if (time <= 0)
                 {
+                    FindObjectOfType<AudioManagerScript>().Play("Theme");
                     restartCountText.text = "";
                     GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(true);
                     gameController.gameOver=false;

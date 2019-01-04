@@ -73,6 +73,7 @@ public class GameControllerScript : MonoBehaviour {
         ChangeSkin(currentSkinIndex);
 
         Application.targetFrameRate = 600;
+
     }
 	
 	void Update ()
@@ -84,6 +85,7 @@ public class GameControllerScript : MonoBehaviour {
             if (!EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
             {
                 gameOver = false;
+                FindObjectOfType<AudioManagerScript>().Play("Theme");
                 if (GameObject.Find("TapToPlay"))
                 {
                     GameObject.Find("ShopButton").SetActive(false);

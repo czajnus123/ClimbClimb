@@ -108,6 +108,7 @@ public class PlayerScript : MonoBehaviour {
 
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
+
         StartCoroutine(Death(collision));
 
         if (collision.gameObject.tag != "Coin"&&collision.gameObject.tag!="ObstacleClone")
@@ -123,6 +124,7 @@ public class PlayerScript : MonoBehaviour {
     {
         GameControllerScript.Instance.gameOver = true;
         GameControllerScript.Instance.endMenu = true;
+        FindObjectOfType<AudioManagerScript>().Pause("Theme");
         try
         {
             GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
@@ -144,6 +146,7 @@ public class PlayerScript : MonoBehaviour {
         saveManager.Save();
         if (GameControllerScript.Instance.deathCount > 1)
         {
+            FindObjectOfType<AudioManagerScript>().Stop("Theme");
             Destroy(gameObject);
         }
 
