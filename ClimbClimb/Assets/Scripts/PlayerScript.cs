@@ -112,8 +112,8 @@ public class PlayerScript : MonoBehaviour {
         {
             GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
             GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Stop();
-            GameObject.Find("ExplodeParticle").GetComponent<ParticleSystem>().Play();
-            GameObject.Find("ExplodeParticle2").GetComponent<ParticleSystem>().Play();
+            GameObject.Find("ImplodingCircle").GetComponent<ParticleSystem>().Play();
+            //GameObject.Find("ExplodeParticle2").GetComponent<ParticleSystem>().Play();
 
             Destroy(collision.transform.parent.gameObject);
 
@@ -122,7 +122,7 @@ public class PlayerScript : MonoBehaviour {
         {
             Destroy(collision.gameObject);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
         GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(false);

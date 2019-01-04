@@ -125,7 +125,7 @@ public class GameControllerScript : MonoBehaviour {
 	}
     public void SetPlayerMovingEffect()
     {
-        for (int i = 0; i < player.transform.childCount - 4; i++)
+        for (int i = 0; i < player.transform.childCount - 3; i++)
         {
             if (i == currentSkinIndex)
                 player.transform.GetChild(i).gameObject.SetActive(true);
