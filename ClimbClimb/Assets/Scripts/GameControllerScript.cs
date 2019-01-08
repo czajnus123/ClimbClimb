@@ -78,6 +78,7 @@ public class GameControllerScript : MonoBehaviour {
 	
 	void Update ()
     {
+
         coinText.text = PlayerPrefs.GetInt("Coins").ToString();
             
             if (Input.touchCount > 0 && gameOver == true && endMenu == false && Input.touches[0].phase==TouchPhase.Began&&shopActive==false)
@@ -133,7 +134,6 @@ public class GameControllerScript : MonoBehaviour {
                 player.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
-
 
     public void AddCoin(int coin)
     {

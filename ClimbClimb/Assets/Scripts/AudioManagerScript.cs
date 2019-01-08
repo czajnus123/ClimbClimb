@@ -19,6 +19,7 @@ public class AudioManagerScript : MonoBehaviour {
             s.source.loop = s.loop;
             
         }
+
 		
 	}
 
