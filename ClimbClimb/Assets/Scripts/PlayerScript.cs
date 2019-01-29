@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 
-    private GameObject posRight, posLeft;
+    private GameObject posRight, posLeft,explosion;
 
     private SaveScript saveManager;
     private Touch touch;
@@ -28,6 +28,11 @@ public class PlayerScript : MonoBehaviour {
 
         posRight = GameObject.Find("posRight");
         posLeft = GameObject.Find("posLeft");
+
+        Vector2 vec = gameObject.transform.position;
+
+        GameObject go = Instantiate(GameControllerScript.Instance.PlayerTrails[GameControllerScript.Instance.currentSkinIndex],vec,Quaternion.identity);
+        go.transform.parent = transform;
     }
 	
 	// Update is called once per frame
@@ -112,7 +117,9 @@ public class PlayerScript : MonoBehaviour {
         {
             GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
             GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Stop();
-            GameObject.Find("ImplodingCircle").GetComponent<ParticleSystem>().Play();
+            //GameObject.Find("ImplodingCircle").GetComponent<ParticleSystem>().Play();
+            explosion = Instantiate(GameControllerScript.Instance.PlayerExplosions[GameControllerScript.Instance.currentSkinIndex],
+                new Vector2(gameObject.transform.position.x,gameObject.transform.position.y),Quaternion.identity);
             //GameObject.Find("ExplodeParticle2").GetComponent<ParticleSystem>().Play();
 
             Destroy(collision.transform.parent.gameObject);
@@ -123,7 +130,7 @@ public class PlayerScript : MonoBehaviour {
             Destroy(collision.gameObject);
         }
         yield return new WaitForSeconds(2f);
-
+        Destroy(explosion);
         GameObject.Find("Canvas").transform.Find("Panel").gameObject.SetActive(true);
         GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(false);
         saveManager.Save();

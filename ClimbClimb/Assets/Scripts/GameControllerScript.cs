@@ -16,6 +16,7 @@ public class GameControllerScript : MonoBehaviour {
         spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab;
 
     public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins;
+    public GameObject[] PlayerExplosions, PlayerTrails;
     public Button basicButton;
     private Color targetColor;
 
@@ -126,13 +127,12 @@ public class GameControllerScript : MonoBehaviour {
 	}
     public void SetPlayerMovingEffect()
     {
-        for (int i = 0; i < player.transform.childCount - 3; i++)
-        {
-            if (i == currentSkinIndex)
-                player.transform.GetChild(i).gameObject.SetActive(true);
-            else
-                player.transform.GetChild(i).gameObject.SetActive(false);
-        }
+       
+        Destroy(player.transform.GetChild(2).gameObject);
+
+        Vector2 vec = player.transform.position;
+        GameObject go = Instantiate(PlayerTrails[currentSkinIndex], vec, Quaternion.identity);
+        go.transform.parent = player.transform;
     }
 
     public void AddCoin(int coin)
