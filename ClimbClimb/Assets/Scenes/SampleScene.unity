@@ -4503,6 +4503,26 @@ MonoBehaviour:
   TunnelObSkins:
   - {fileID: 21300000, guid: e1d27a19870cd824a9217d96498bf232, type: 3}
   - {fileID: 21300000, guid: 0cbfd1d6d6026d547a3ea3b4bfedb657, type: 3}
+  PlayerExplosions:
+  - {fileID: 1062983213981424, guid: 9f1a026daadaa334db2d7020314c50d2, type: 2}
+  - {fileID: 1233362228082038, guid: 81776c3a8a811c0458ee03db6c8e041d, type: 2}
+  - {fileID: 1017520715628298, guid: 6f7678f4c5a93664da6b37e4c66f057c, type: 2}
+  - {fileID: 1185747547275380, guid: ae30d5aceca5ade458d5bb0385812cd1, type: 2}
+  - {fileID: 1318126931131212, guid: a10ef6126ea231a48b4e98515431e5da, type: 2}
+  - {fileID: 1644282094980136, guid: af63c154e8f3cd342a0764d827f6447c, type: 2}
+  - {fileID: 1885902456479840, guid: 9e3a599b5069f01459fcd4294a4f796e, type: 2}
+  - {fileID: 1320394639706818, guid: f3f535d17471520408dc2f1c72f366cd, type: 2}
+  - {fileID: 1764010265833638, guid: 6a271a2b84bd6904c8eeb48b2d7c06fd, type: 2}
+  PlayerTrails:
+  - {fileID: 1600961571127240, guid: 92bcff239b4779049a4dadfaa3116a02, type: 2}
+  - {fileID: 1738184859385252, guid: 7bab245bd8066194881f58b4f597dcdf, type: 2}
+  - {fileID: 1372986113238034, guid: b4aa781c9fbe0b84692ee84b707f3050, type: 2}
+  - {fileID: 1575403503001536, guid: d5f011cebef68a74d8987b2e235b72d9, type: 2}
+  - {fileID: 1180432972733134, guid: 12bb9cf795ffda944ad46bc32d2d1e54, type: 2}
+  - {fileID: 1612222121291834, guid: bc79e7f6e0ca10a4a85b6bc76599ee44, type: 2}
+  - {fileID: 1673265382601302, guid: 30a7e0aaf2f630548809a7e36874d6d7, type: 2}
+  - {fileID: 1341350972963294, guid: 77fbcf7b88e8a64419254af1cb80d5d2, type: 2}
+  - {fileID: 1937609270648412, guid: 5fc43d7e3e2025047b2e24e28cd181d5, type: 2}
   basicButton: {fileID: 114895970206204150, guid: 0f6064b0c4cf8674fbbe787e7fa9e2c8,
     type: 2}
   rightSide: 0
