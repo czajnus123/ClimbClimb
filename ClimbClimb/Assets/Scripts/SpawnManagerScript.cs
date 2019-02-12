@@ -12,7 +12,7 @@ public class SpawnManagerScript : MonoBehaviour {
 
 
     public GameObject spawnRight, spawnLeft, spawnMid, basicObstacle, tunnelRightObstacle, tunnelLeftObstacle, coin, spawnLightLeftPos,
-        spawnLightRightPos, lightningPrefab, camera, obstacleMid,basicObstacleObj;
+        spawnLightRightPos, lightningPrefab, camera, obstacleMid,basicObstacleObj, laserObstacle, rightLaserSpawn,leftLaserSpawn;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
@@ -69,6 +69,10 @@ public class SpawnManagerScript : MonoBehaviour {
                     case 3:
                         SpawnMiddleOb();
                         break;
+                    case 4:
+                        if(!FindByTag("Tunnel")&&!FindByTag("Obstacle"))
+                        SpawnLaser();
+                        break;
                 }
             }
             if (toSpawnCoin == true)
@@ -98,7 +102,7 @@ public class SpawnManagerScript : MonoBehaviour {
                 else
                 {
                     points = pointManager.GetPoints();
-                    var ob = Random.Range(0f, 4f);
+                    var ob = Random.Range(0f, 5f);
                     obstacleType = (int)ob;
                 }
                 
@@ -191,6 +195,22 @@ public class SpawnManagerScript : MonoBehaviour {
         {
             Instantiate(tunnelRightObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
         }
+    }
+
+    void SpawnLaser()
+    {
+        gameController.toSpawn = false;
+        side = Mathf.Round(Random.RandomRange(0f, 1f));
+        if (side >= 0 && side < 1)
+        {
+            Instantiate(laserObstacle, new Vector2(leftLaserSpawn.transform.position.x, leftLaserSpawn.transform.position.y), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(laserObstacle, new Vector2(rightLaserSpawn.transform.position.x, rightLaserSpawn.transform.position.y), Quaternion.identity);
+
+        }
+        Debug.Log("SIDE: " + side);
     }
 
     void RotateCamera()

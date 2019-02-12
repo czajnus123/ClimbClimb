@@ -16,10 +16,11 @@ public class GameControllerScript : MonoBehaviour {
         spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab;
 
     public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins;
+    public GameObject[] PlayerExplosions, PlayerTrails;
     public Button basicButton;
     private Color targetColor;
 
-    public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check;
+    public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check, laserShrink;
 
     public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0, midLeft = 0, midRight = 0;
 
@@ -47,6 +48,7 @@ public class GameControllerScript : MonoBehaviour {
         currentSkinIndex = 0;
         instance = this;
         speed = 5;
+        laserShrink = false;
 
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
@@ -78,6 +80,7 @@ public class GameControllerScript : MonoBehaviour {
 	
 	void Update ()
     {
+
         coinText.text = PlayerPrefs.GetInt("Coins").ToString();
             
             if (Input.touchCount > 0 && gameOver == true && endMenu == false && Input.touches[0].phase==TouchPhase.Began&&shopActive==false)
@@ -125,15 +128,13 @@ public class GameControllerScript : MonoBehaviour {
 	}
     public void SetPlayerMovingEffect()
     {
-        for (int i = 0; i < player.transform.childCount - 3; i++)
-        {
-            if (i == currentSkinIndex)
-                player.transform.GetChild(i).gameObject.SetActive(true);
-            else
-                player.transform.GetChild(i).gameObject.SetActive(false);
-        }
-    }
+       
+        Destroy(player.transform.GetChild(2).gameObject);
 
+        Vector2 vec = player.transform.position;
+        GameObject go = Instantiate(PlayerTrails[currentSkinIndex], vec, Quaternion.identity);
+        go.transform.parent = player.transform;
+    }
 
     public void AddCoin(int coin)
     {
