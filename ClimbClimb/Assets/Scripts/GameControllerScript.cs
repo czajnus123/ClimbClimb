@@ -20,7 +20,7 @@ public class GameControllerScript : MonoBehaviour {
     public Button basicButton;
     private Color targetColor;
 
-    public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check;
+    public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check, laserShrink;
 
     public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0, midLeft = 0, midRight = 0;
 
@@ -48,6 +48,7 @@ public class GameControllerScript : MonoBehaviour {
         currentSkinIndex = 0;
         instance = this;
         speed = 5;
+        laserShrink = false;
 
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
