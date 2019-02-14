@@ -10,13 +10,18 @@ public class UIScript : MonoBehaviour {
     public TextMeshProUGUI highScoreText, scoreText, restartCountText, shopCoins;
 
 
-    public GameObject ADCountCircle, shopBackground, shopUI, noAdsButton, texts, shopButton, shopBg;
+    public GameObject ADCountCircle, shopBackground, shopUI, noAdsButton, texts, shopButton, shopBg, content, shopPlatform,
+        shopLight, portal,shopPlayer, portalBoil, skinsBg;
     public InfiniteScrollScript infScript;
 
     private int highScore, score;
     private float time;
 
     public bool startRestartCount;
+
+    bool fadeInColor, fadeOutColor;
+
+    float iteration = 0;
 
     PointManagerScript pointManager;
     GameControllerScript gameController;
@@ -30,11 +35,15 @@ public class UIScript : MonoBehaviour {
         adManager = GameObject.Find("mainObject").GetComponent<AdManager>();
         infScript = shopBg.GetComponent<InfiniteScrollScript>();
         shopCoins.text = gameController.coinCount.ToString();
+
+        fadeInColor = false;
+        fadeOutColor = false;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        
         shopCoins.text = gameController.coinCount.ToString();
         highScore = (int)PlayerPrefs.GetFloat("highscore", 0);
         highScoreText.text = "Best: " +highScore.ToString();
@@ -44,6 +53,7 @@ public class UIScript : MonoBehaviour {
 
         if (gameController.gameOver == true)
         {
+           
             if (gameController.endMenu == true)
             {
                 
@@ -67,8 +77,8 @@ public class UIScript : MonoBehaviour {
                 }
             }
         }
-        
-	}
+
+    }
 
     public void RestartGame()
     {
@@ -147,31 +157,91 @@ public class UIScript : MonoBehaviour {
     {
         if (GameControllerScript.Instance.coinCount >= 10)
         {
+            
             GameControllerScript.Instance.coinCount -= 10;
             int r = Random.RandomRange(1, GameControllerScript.Instance.skins.Length);
-            if ((GameControllerScript.Instance.skinAvailability & 1 << r) == 1 << r)
-            {
-            }
-            else
-            {
-                GameControllerScript.Instance.skinAvailability += 1 << r;
-            }
-            var sname= GameControllerScript.Instance.skins[r].name;
-            Debug.Log(sname);
-            var ob = GameObject.Find("Content");
-            for(int i = 0; i < GameControllerScript.Instance.skins.Length; i++)
-            {
-                if (ob.transform.GetChild(i).GetComponent<Image>().sprite.name == sname)
-                {
-                    ob.transform.GetChild(i).gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                } 
-            }
+            //var ob = GameObject.Find("Content");
+            
+            StartCoroutine(RollSkinTimer(r));
+            
+            
             GameControllerScript.Instance.Save();
         }
     }
+
+    IEnumerator RollSkinTimer(int r)
+    {
+        content.SetActive(false);
+        skinsBg.GetComponent<Image>().enabled = false;
+        portal.GetComponent<Animator>().SetTrigger("PortalAppear");
+
+        while (iteration < 1f)
+        {
+            shopPlatform.GetComponent<SpriteRenderer>().material.color = Color.Lerp(gameController.shopPlatformColor[0], gameController.shopPlatformColor[1], iteration);
+            shopLight.GetComponent<SpriteRenderer>().material.color = Color.Lerp(gameController.shopLightColor[0], gameController.shopLightColor[1], iteration);
+            iteration += Time.deltaTime*2;
+            yield return null;
+        }
+       
+        yield return new WaitForSeconds(.5f);
+        shopPlayer.GetComponent<Animator>().SetBool("PortalSuck", true);
+
+        yield return new WaitForSeconds(1f);
+        var go = Instantiate(portalBoil, new Vector2(portal.transform.position.x, portal.transform.position.y), Quaternion.identity);
+        // active new particles in portal
+
+        yield return new WaitForSeconds(3f);
+       // Destroy(go);
+        if ((GameControllerScript.Instance.skinAvailability & 1 << r) == 1 << r)
+        {
+        }
+        else
+        {
+            GameControllerScript.Instance.skinAvailability += 1 << r;
+        }
+        var sname = GameControllerScript.Instance.skins[r].name;
+
+        shopPlayer.GetComponent<SpriteRenderer>().sprite = gameController.skins[r];
+
+        Debug.Log(sname);
+
+        for (int i = 0; i < GameControllerScript.Instance.skins.Length; i++)
+        {
+            if (content.transform.GetChild(i).GetComponent<Image>().sprite.name == sname)
+            {
+                content.transform.GetChild(i).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+        shopPlayer.GetComponent<Animator>().SetBool("PortalSuck", false);
+        portal.GetComponent<Animator>().SetTrigger("PortalDisapear");
+
+        iteration = 0;
+        while (iteration < 1f)
+        {
+            shopPlatform.GetComponent<SpriteRenderer>().material.color = Color.Lerp(gameController.shopPlatformColor[1], gameController.shopPlatformColor[0], iteration);
+            shopLight.GetComponent<SpriteRenderer>().material.color = Color.Lerp(gameController.shopLightColor[1], gameController.shopLightColor[0], iteration);
+            iteration += Time.deltaTime;
+            yield return null;
+        }
+        iteration = 0;
+
+        yield return new WaitForSeconds(1f);
+        content.SetActive(true);
+        skinsBg.GetComponent<Image>().enabled = true;
+
+
+
+
+    }
+
     public void ResetPlayerPrefs()
     {
         gameController.ResetSaves();
         Application.Quit();
+    }
+
+    public void TurnOffCollider()
+    {
+        GameObject.Find("Player(Clone)").GetComponent<BoxCollider2D>().enabled = false;
     }
 }

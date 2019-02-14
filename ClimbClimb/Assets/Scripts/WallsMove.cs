@@ -10,6 +10,10 @@ public class WallsMove : MonoBehaviour {
     private float wallSprite,wallSprite2,wallSprite3;
     private Vector2 startPosition,TwoPosition,ThreePosition;
 
+    private int previousLevel;
+
+    GameControllerScript gameController;
+
     // Use this for initialization
     void Start()
     {
@@ -22,6 +26,7 @@ public class WallsMove : MonoBehaviour {
         wallSprite3 = walls3.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y;
         startPosition = walls1.transform.position;
 
+        gameController = GameControllerScript.Instance;
 
         type = 0;
 
@@ -54,6 +59,19 @@ public class WallsMove : MonoBehaviour {
 
         if (GameControllerScript.Instance.gameOver == false)
         {
+            if (previousLevel + 1 == gameController.level)
+            {
+                previousLevel = gameController.level;
+                walls1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = gameController.RightWallSkins[gameController.level];
+                walls2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = gameController.RightWallSkins[gameController.level];
+                walls3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = gameController.RightWallSkins[gameController.level];
+
+                walls1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = gameController.LeftWalLSkins[gameController.level];
+                walls2.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = gameController.LeftWalLSkins[gameController.level];
+                walls3.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = gameController.LeftWalLSkins[gameController.level];
+                
+            }
+
             transform.Translate(Vector3.down * GameControllerScript.Instance.speed * Time.deltaTime);
 
             

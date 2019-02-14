@@ -136,7 +136,7 @@ public class SpawnManagerScript : MonoBehaviour {
         {
             leftCount = leftCount + 1;
             Vector2[] leftVectorTab = {
-                new Vector2(spawnLeft.transform.position.x + basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.x, spawnLeft.transform.position.y),
+                new Vector2(spawnLeft.transform.position.x + basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.x/1.1f, spawnLeft.transform.position.y),
                 new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y+basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
                                 new Vector2(spawnLeft.transform.position.x, spawnLeft.transform.position.y-basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
             };
@@ -160,7 +160,7 @@ public class SpawnManagerScript : MonoBehaviour {
         {
             rightCount = rightCount + 1;
             Vector2[] rightVectorTab = {
-                new Vector2(spawnRight.transform.position.x -basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.x, spawnLeft.transform.position.y),
+                new Vector2(spawnRight.transform.position.x -basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.x/1.1f, spawnLeft.transform.position.y),
                 new Vector2(spawnRight.transform.position.x, spawnLeft.transform.position.y+basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
                                 new Vector2(spawnRight.transform.position.x, spawnLeft.transform.position.y-basicObstacleObj.GetComponent<SpriteRenderer>().bounds.size.y),
             };

@@ -15,16 +15,17 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject playerPrefab, oponentPrefab, spawnPlayerPos, posLeft, leftWall, rightWall, spawnObstacleRight, spawnObstacleLeft,
         spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab;
 
-    public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins;
+    public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins,LeftWalLSkins,RightWallSkins,BackgroundSkins;
     public GameObject[] PlayerExplosions, PlayerTrails;
     public Button basicButton;
     private Color targetColor;
+    public Color[] shopPlatformColor, shopLightColor;
 
     public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check, laserShrink;
 
-    public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0, midLeft = 0, midRight = 0;
+    public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0, midLeft = 0, midRight = 0, level = 0;
 
-    private int skin = 0, side;
+    private int skin = 0, side, previousLevel;
 
     public float speed;
 
@@ -49,18 +50,20 @@ public class GameControllerScript : MonoBehaviour {
         instance = this;
         speed = 5;
         laserShrink = false;
+        level = 0;
+        previousLevel = 0;
 
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
-        posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/2
+        posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/5.5f
             + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/5),posLeft.transform.position.y);
 
-        spawnPlayerPos.transform.position= new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
+        spawnPlayerPos.transform.position= new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 5.5f
             - playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/5), spawnPlayerPos.transform.position.y);
 
-        spawnObstacleLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
+        spawnObstacleLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x / 5.5f
             + obstaclePrefab.GetComponent<SpriteRenderer>().bounds.size.x / 4), spawnObstacleLeft.transform.position.y);
-        spawnObstacleRight.transform.position = new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 2
+        spawnObstacleRight.transform.position = new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 5.5f
             - obstaclePrefab.GetComponent<SpriteRenderer>().bounds.size.x / 4), spawnObstacleLeft.transform.position.y);
         spawnLightLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnLightLeft.transform.position.y);
         spawnLightRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnLightRight.transform.position.y);
@@ -100,6 +103,21 @@ public class GameControllerScript : MonoBehaviour {
             }
         if (gameOver == false)
         {
+            if (previousLevel + 1 == level)
+            {
+                previousLevel = level;
+                //leftWall.GetComponent<SpriteRenderer>().sprite = LeftWalLSkins[level];
+
+                // rightWall.GetComponent<SpriteRenderer>().sprite = RightWallSkins[level];
+                background.GetComponent<SpriteRenderer>().sprite = BackgroundSkins[level];
+                for (int i = 0; i < background.transform.childCount; i++)
+                {
+                    background.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = BackgroundSkins[level];
+                }
+
+            }
+
+
             speed += .05f * Time.deltaTime;
             if (timeLeft <= Time.deltaTime)
             {
