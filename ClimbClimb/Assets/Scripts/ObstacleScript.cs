@@ -8,9 +8,11 @@ public class ObstacleScript : MonoBehaviour {
     bool spawned, switched;
     int leftCount, rightCount,level;
     PointManagerScript pointManager;
+    GameControllerScript gameController;
 
 	// Use this for initialization
 	void Start () {
+        gameController = GameControllerScript.Instance;
         spawned = false;
         switched = false;
         leftCount = 0;
@@ -18,7 +20,8 @@ public class ObstacleScript : MonoBehaviour {
  
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
 
-        level = (int)(pointManager.GetPoints()/10)/2;
+        gameController.level = (int)(pointManager.GetPoints()/10)/2;
+        level = gameController.level;
         try
         {
             if (gameObject.tag == "Obstacle" || gameObject.tag == "ObstacleClone")
