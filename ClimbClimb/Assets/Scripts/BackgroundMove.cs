@@ -8,9 +8,12 @@ public class BackgroundMove : MonoBehaviour {
 
     private GameObject stars1, stars2,stars3;
     private Vector2 startPosition;
+    private float dev;
 
     // Use this for initialization
     void Start () {
+
+        dev = 1f;
 
         stars1 = GameObject.Find("Stars");
         stars2 = GameObject.Find("Stars2");
@@ -32,11 +35,11 @@ public class BackgroundMove : MonoBehaviour {
                 break;
             case 2:
                 gameObject.transform.position = new Vector2(stars1.transform.position.x, (stars1.transform.position.y +
-                    stars1.GetComponent<SpriteRenderer>().bounds.size.y));
+                    stars1.GetComponent<SpriteRenderer>().bounds.size.y/ dev));
                 break;
             case 3:
                 gameObject.transform.position = new Vector2(stars1.transform.position.x, (stars1.transform.position.y +
-                    stars1.GetComponent<SpriteRenderer>().bounds.size.y*2));
+                    stars1.GetComponent<SpriteRenderer>().bounds.size.y/ dev*2));
                 break;
         }
 		
@@ -55,15 +58,15 @@ public class BackgroundMove : MonoBehaviour {
                 {
                     case 1:
                         gameObject.transform.position = new Vector2(stars3.transform.position.x, stars3.transform.position.y
-                            + stars3.GetComponent<SpriteRenderer>().bounds.size.y);
+                            + stars3.GetComponent<SpriteRenderer>().bounds.size.y/ dev);
                         break;
                     case 2:
                         gameObject.transform.position = new Vector2(stars1.transform.position.x, stars1.transform.position.y
-                            + stars1.GetComponent<SpriteRenderer>().bounds.size.y);
+                            + stars1.GetComponent<SpriteRenderer>().bounds.size.y/ dev);
                         break;
                     case 3:
                         gameObject.transform.position = new Vector2(stars2.transform.position.x, stars2.transform.position.y
-                            + stars2.GetComponent<SpriteRenderer>().bounds.size.y);
+                            + stars2.GetComponent<SpriteRenderer>().bounds.size.y/ dev);
                         break;
                 }
             }
