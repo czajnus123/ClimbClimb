@@ -13,7 +13,7 @@ public class GameControllerScript : MonoBehaviour {
     public TextMeshProUGUI coinText;
 
     public GameObject playerPrefab, oponentPrefab, spawnPlayerPos, posLeft, leftWall, rightWall, spawnObstacleRight, spawnObstacleLeft,
-        spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab, rain, rainSpawnWayp;
+        spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab, rain, rainSpawnWayp,texts;
 
     public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins,LeftWalLSkins,RightWallSkins,BackgroundSkins;
     public GameObject[] PlayerExplosions, PlayerTrails, Rains;
@@ -21,7 +21,7 @@ public class GameControllerScript : MonoBehaviour {
     private Color targetColor;
     public Color[] shopPlatformColor, shopLightColor;
 
-    public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check, laserShrink;
+    public bool rightSide, gameOver, endMenu, toSpawn, shopActive,check, laserShrink, resumeRain;
 
     public int coinCount, spawnCoinCounter, deathCount, currentSkinIndex = 0, skinAvailability = 0, midLeft = 0, midRight = 0, level = 0;
 
@@ -52,6 +52,7 @@ public class GameControllerScript : MonoBehaviour {
         laserShrink = false;
         level = 0;
         previousLevel = -1;
+        resumeRain = false;
 
         var dev = 5f;
 
@@ -99,6 +100,9 @@ public class GameControllerScript : MonoBehaviour {
                 {
                     GameObject.Find("ShopButton").SetActive(false);
                     GameObject.Find("TapToPlay").SetActive(false);
+                    GameObject.Find("LOGO").SetActive(false);
+                    texts.SetActive(true);
+                    
                    // GameObject.Find("NoAdsButton").SetActive(false);
                     GameObject.Find("Oponent(Clone)").GetComponent<AIScript>().SetSpeed(0.5f);
                 }
@@ -106,6 +110,11 @@ public class GameControllerScript : MonoBehaviour {
             }
         if (gameOver == false)
         {
+            if (resumeRain == true)
+            {
+                rain.GetComponent<ParticleSystem>().Play();
+                resumeRain = false;
+            }
             if (previousLevel == -1)
             {
                 rain = Instantiate(Rains[level], rainSpawnWayp.transform.position, Quaternion.identity);

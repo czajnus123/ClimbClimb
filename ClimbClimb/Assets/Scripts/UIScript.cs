@@ -11,7 +11,7 @@ public class UIScript : MonoBehaviour {
 
 
     public GameObject ADCountCircle, shopBackground, shopUI, noAdsButton, texts, shopButton, shopBg, content, shopPlatform,
-        shopLight, portal,shopPlayer, portalBoil, skinsBg;
+        shopLight, portal,shopPlayer, portalBoil, skinsBg, logo;
     public InfiniteScrollScript infScript;
 
     private int highScore, score;
@@ -73,7 +73,9 @@ public class UIScript : MonoBehaviour {
                     GameObject.Find("Canvas").transform.Find("Texts").gameObject.SetActive(true);
                     gameController.gameOver=false;
                     GameControllerScript.Instance.endMenu = false;
+                    gameController.resumeRain = true;
                     startRestartCount = false;
+                    
                 }
             }
         }
@@ -104,6 +106,7 @@ public class UIScript : MonoBehaviour {
         shopButton.SetActive(false);
         shopBackground.SetActive(true);
         gameController.shopActive=true;
+        logo.SetActive(false);
         GameObject.Find("SPlayer").GetComponent<SpriteRenderer>().sprite = GameObject.Find("Player(Clone)").GetComponent<SpriteRenderer>().sprite;
 
     }
@@ -119,6 +122,7 @@ public class UIScript : MonoBehaviour {
         shopButton.SetActive(true);
         shopBackground.SetActive(false);
         gameController.shopActive=false;
+        logo.SetActive(true);
         GameControllerScript.Instance.check = true;
     }
 

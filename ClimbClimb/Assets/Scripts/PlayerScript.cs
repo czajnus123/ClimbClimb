@@ -102,7 +102,7 @@ public class PlayerScript : MonoBehaviour {
 
         StartCoroutine(Death(collision));
 
-        if (collision.gameObject.tag != "Coin"&&collision.gameObject.tag!="ObstacleClone")
+        if (collision.gameObject.tag != "Coin" && collision.gameObject.tag!="ObstacleClone")
         {
             GameControllerScript.Instance.SetDeathCount();
         }
@@ -120,14 +120,13 @@ public class PlayerScript : MonoBehaviour {
         {
             GameObject.Find("LeftParticle").GetComponent<ParticleSystem>().Stop();
             GameObject.Find("RightParticle").GetComponent<ParticleSystem>().Stop();
-            //GameObject.Find("ImplodingCircle").GetComponent<ParticleSystem>().Play();
             explosion = Instantiate(GameControllerScript.Instance.PlayerExplosions[GameControllerScript.Instance.currentSkinIndex],
                 new Vector2(gameObject.transform.position.x,gameObject.transform.position.y),Quaternion.identity);
-            //GameObject.Find("ExplodeParticle2").GetComponent<ParticleSystem>().Play();
 
             if (collision.gameObject.tag != "Laser")
             {
                 Destroy(collision.transform.parent.gameObject);
+                Debug.Log("collision with: " + collision.gameObject.name + ", " + collision.gameObject.tag + ", " + collision.transform.parent.gameObject.name);
             }
 
         }
@@ -137,6 +136,7 @@ public class PlayerScript : MonoBehaviour {
             if (collision.gameObject.tag != "Laser")
             {
                 Debug.Log("catch: " + collision.gameObject.tag);
+                Destroy(collision.gameObject);
             }
                
         }
