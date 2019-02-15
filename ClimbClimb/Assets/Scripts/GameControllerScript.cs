@@ -13,10 +13,10 @@ public class GameControllerScript : MonoBehaviour {
     public TextMeshProUGUI coinText;
 
     public GameObject playerPrefab, oponentPrefab, spawnPlayerPos, posLeft, leftWall, rightWall, spawnObstacleRight, spawnObstacleLeft,
-        spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab;
+        spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab, rain, rainSpawnWayp;
 
     public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins,LeftWalLSkins,RightWallSkins,BackgroundSkins;
-    public GameObject[] PlayerExplosions, PlayerTrails;
+    public GameObject[] PlayerExplosions, PlayerTrails, Rains;
     public Button basicButton;
     private Color targetColor;
     public Color[] shopPlatformColor, shopLightColor;
@@ -51,25 +51,28 @@ public class GameControllerScript : MonoBehaviour {
         speed = 5;
         laserShrink = false;
         level = 0;
-        previousLevel = 0;
+        previousLevel = -1;
+
+        var dev = 5f;
 
         targetColor = background.GetComponent<SpriteRenderer>().material.color;
 
-        posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/5.5f
+        posLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x/dev
             + playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/5),posLeft.transform.position.y);
 
-        spawnPlayerPos.transform.position= new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 5.5f
+        spawnPlayerPos.transform.position= new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / dev
             - playerPrefab.GetComponent<SpriteRenderer>().bounds.size.x/5), spawnPlayerPos.transform.position.y);
 
-        spawnObstacleLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x / 5.5f
+        spawnObstacleLeft.transform.position = new Vector2((leftWall.transform.position.x + leftWall.GetComponent<SpriteRenderer>().bounds.size.x / dev
             + obstaclePrefab.GetComponent<SpriteRenderer>().bounds.size.x / 4), spawnObstacleLeft.transform.position.y);
-        spawnObstacleRight.transform.position = new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / 5.5f
+        spawnObstacleRight.transform.position = new Vector2((rightWall.transform.position.x - rightWall.GetComponent<SpriteRenderer>().bounds.size.x / (dev-.2f)
             - obstaclePrefab.GetComponent<SpriteRenderer>().bounds.size.x / 4), spawnObstacleLeft.transform.position.y);
         spawnLightLeft.transform.position = new Vector2(posLeft.transform.position.x, spawnLightLeft.transform.position.y);
         spawnLightRight.transform.position = new Vector2(spawnPlayerPos.transform.position.x, spawnLightRight.transform.position.y);
 
         Instantiate(playerPrefab, new Vector2(spawnPlayerPos.transform.position.x, spawnPlayerPos.transform.position.y), Quaternion.identity);
         Instantiate(oponentPrefab, new Vector2(spawnPlayerPos.transform.position.x, Random.RandomRange(10,20)), Quaternion.identity);
+
 
         player = GameObject.Find("Player(Clone)");
 
@@ -103,8 +106,17 @@ public class GameControllerScript : MonoBehaviour {
             }
         if (gameOver == false)
         {
+            if (previousLevel == -1)
+            {
+                rain = Instantiate(Rains[level], rainSpawnWayp.transform.position, Quaternion.identity);
+                previousLevel = 0;
+            }
+
             if (previousLevel + 1 == level)
             {
+                var pr = rain;
+                StartCoroutine(DestroyPreviousRain(pr));
+                rain = Instantiate(Rains[level], rainSpawnWayp.transform.position, Quaternion.identity);
                 previousLevel = level;
                 //leftWall.GetComponent<SpriteRenderer>().sprite = LeftWalLSkins[level];
 
@@ -135,6 +147,19 @@ public class GameControllerScript : MonoBehaviour {
 
                 timeLeft -= Time.deltaTime;
             }
+        }
+
+        if (gameOver == true)
+        {
+            try
+            {
+                rain.GetComponent<ParticleSystem>().Pause();
+            }
+            catch
+            {
+
+            }
+
         }
 
         if (check == true)
@@ -223,6 +248,14 @@ public class GameControllerScript : MonoBehaviour {
             PlayerPrefs.SetFloat("highscore", 0);
             Load();
         }
+    }
+
+    IEnumerator DestroyPreviousRain(GameObject previousRain)
+    {
+        var ps = previousRain.GetComponent<ParticleSystem>().emission;
+        ps.rateOverTime = 0;
+        yield return new WaitForSeconds(10f);
+        Destroy(previousRain);
     }
     public void ResetSaves()
     {
