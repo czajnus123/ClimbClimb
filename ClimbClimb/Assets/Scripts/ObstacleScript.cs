@@ -20,7 +20,7 @@ public class ObstacleScript : MonoBehaviour {
  
         pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
 
-        gameController.level = (int)(pointManager.GetPoints()/10)/2;
+       // gameController.level = (int)(pointManager.GetPoints()/10)/2;
         level = gameController.level;
         try
         {
@@ -105,7 +105,7 @@ public class ObstacleScript : MonoBehaviour {
                     spawned = true;
                 }
             }
-            if (gameObject.tag == "ObstacleM" && gameObject.transform.position.y <= GameObject.Find("spawnTriggerT").transform.position.y&&switched==false)
+            if (gameObject.tag == "ObstacleM" && gameObject.transform.position.y <= GameObject.Find("midObTrigger").transform.position.y&&switched==false)
             {
                 var value = Random.RandomRange(0f, 2f);
                 if (GameControllerScript.Instance.midLeft > 2)

@@ -7,11 +7,22 @@ public class BackgroundMove : MonoBehaviour {
     private int type;
 
     private GameObject stars1, stars2,stars3;
+    public GameObject upWallEdge;
     private Vector2 startPosition;
     private float dev;
 
+    private int previousLevel;
+    private bool changeBg;
+
+    GameControllerScript gameController;
+
     // Use this for initialization
     void Start () {
+
+        gameController = GameControllerScript.Instance;
+
+        previousLevel = 0;
+        changeBg = false;
 
         dev = 1f;
 
@@ -50,7 +61,27 @@ public class BackgroundMove : MonoBehaviour {
 
         if (GameControllerScript.Instance.gameOver== false)
         {
-            transform.Translate(Vector3.down * .5f * Time.deltaTime);
+
+           /* if (previousLevel + 1 == gameController.level)
+            {
+                changeBg = true;
+                previousLevel = gameController.level;
+            }
+
+            if (changeBg == true)
+            {
+                var pos = gameObject.transform.position;
+                if (pos.y - stars1.GetComponent<SpriteRenderer>().bounds.size.y/2 >= upWallEdge.transform.position.y / 2)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = gameController.BackgroundSkins[gameController.level];
+                    changeBg = false;
+                }
+
+            }*/
+
+
+
+            transform.Translate(Vector3.down * gameController.speed * Time.deltaTime);
 
             if (gameObject.transform.position.y <= startPosition.y - stars1.GetComponent<SpriteRenderer>().bounds.size.y)
             {

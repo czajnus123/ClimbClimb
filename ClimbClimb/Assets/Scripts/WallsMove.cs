@@ -9,6 +9,8 @@ public class WallsMove : MonoBehaviour {
     private GameObject walls1, walls2, walls3;
     private float wallSprite,wallSprite2,wallSprite3;
     private Vector2 startPosition,TwoPosition,ThreePosition;
+    public GameObject upWallEdge;
+    private bool changeWalls;
 
     private int previousLevel;
 
@@ -25,6 +27,7 @@ public class WallsMove : MonoBehaviour {
         wallSprite2 = walls2.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y;
         wallSprite3 = walls3.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().bounds.size.y;
         startPosition = walls1.transform.position;
+        changeWalls = false;
 
         gameController = GameControllerScript.Instance;
 
@@ -61,16 +64,25 @@ public class WallsMove : MonoBehaviour {
         {
             if (previousLevel + 1 == gameController.level)
             {
+               
+                var pos = gameObject.transform.position;
+                changeWalls = true;
                 previousLevel = gameController.level;
-                walls1.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = gameController.RightWallSkins[gameController.level];
-                walls2.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = gameController.RightWallSkins[gameController.level];
-                walls3.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = gameController.RightWallSkins[gameController.level];
+            }
 
-                walls1.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = gameController.LeftWalLSkins[gameController.level];
-                walls2.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = gameController.LeftWalLSkins[gameController.level];
-                walls3.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = gameController.LeftWalLSkins[gameController.level];
+            if (changeWalls == true)
+            {
+                var pos = gameObject.transform.position;
+                if (pos.y - wallSprite >= upWallEdge.transform.position.y/2)
+                {
+                    gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = gameController.RightWallSkins[gameController.level];
+                    gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = gameController.LeftWalLSkins[gameController.level];
+                    changeWalls = false;
+                }
                 
             }
+
+
 
             transform.Translate(Vector3.down * GameControllerScript.Instance.speed * Time.deltaTime);
 
@@ -103,4 +115,5 @@ public class WallsMove : MonoBehaviour {
         }
 
     }
+
 }

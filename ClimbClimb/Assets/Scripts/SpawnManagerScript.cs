@@ -12,11 +12,13 @@ public class SpawnManagerScript : MonoBehaviour {
 
 
     public GameObject spawnRight, spawnLeft, spawnMid, basicObstacle, tunnelRightObstacle, tunnelLeftObstacle, coin, spawnLightLeftPos,
-        spawnLightRightPos, lightningPrefab, camera, obstacleMid,basicObstacleObj, laserObstacle, rightLaserSpawn,leftLaserSpawn;
+        spawnLightRightPos, lightningPrefab, camera, obstacleMid,basicObstacleObj, laserObstacle, rightLaserSpawn,leftLaserSpawn, lastObstacleTrigger;
 
     private GameControllerScript gameController;
     private PointManagerScript pointManager;
     private PlayerScript playerScript;
+    private GameObject lastObstacle;
+    private string lastObstacleTag;
 
     
 
@@ -39,6 +41,9 @@ public class SpawnManagerScript : MonoBehaviour {
         zeroed = false;
         rotated = false;
         rotatingCamera = false;
+        obstacleType = 0;
+        lastObstacle = lastObstacleTrigger;
+        //lastObstacle.transform.position.y = lastObstacleTrigger.transform.position.y - 1f;
 }
 	
 	// Update is called once per frame
@@ -48,32 +53,52 @@ public class SpawnManagerScript : MonoBehaviour {
         {
             if (gameController.toSpawn == true)
             {
+                //Debug.Log("last obstacle name: " + lastObstacle.name);
                 switch (obstacleType)
                 {
                     case 0:
-                        if (!FindByTag("Tunnel"))
+                        if (lastObstacleTag == "Tunnel")
+                        {
+                            if (CheckLastObstacle(lastObstacle))
+                                SpawnBasic();
+                        }
+                        else
                         {
                             SpawnBasic();
                         }
+                        
                         break;
                     case 1:
                         SpawnTunnel();
                         break;
                     case 2:
                         rotatingCamera = true;
-                        if (!FindByTag("Tunnel"))
-                        {
+                        if (lastObstacleTag == "Laser")
+                            lastObstacleTag = "Obstacle";
+                        if (lastObstacleTag != "Tunnel")
                             SpawnBasic();
-                        }
+                        
+                        else if (CheckLastObstacle(lastObstacle))
+                                SpawnBasic();
+                        
+                        
                         break;
                     case 3:
                         SpawnMiddleOb();
                         break;
                     case 4:
-                        if(!FindByTag("Tunnel")&&!FindByTag("Obstacle"))
-                        SpawnLaser();
+                        if (lastObstacleTag == "Tunnel" || lastObstacleTag == "Obstacle" || lastObstacleTag == "ObstacleM")
+                        {
+                            if (CheckLastObstacle(lastObstacle))
+                                SpawnLaser();
+                        }
+                        else
+                        {
+                            SpawnLaser();
+                        }
                         break;
                 }
+                lastObstacleTag = lastObstacle.tag;
             }
             if (toSpawnCoin == true)
             {
@@ -96,7 +121,7 @@ public class SpawnManagerScript : MonoBehaviour {
                     {
                         zeroed = true;
                         sideCam = Random.RandomRange(0f, 2f);
-                        Debug.Log("sidecam:" + sideCam);
+                       // Debug.Log("sidecam:" + sideCam);
                     }
                 }
                 else
@@ -104,6 +129,8 @@ public class SpawnManagerScript : MonoBehaviour {
                     points = pointManager.GetPoints();
                     var ob = Random.Range(0f, 5f);
                     obstacleType = (int)ob;
+                    Debug.Log("Obstacle type: " + obstacleType);
+                    //obstacleType =4;
                 }
                 
             }
@@ -112,8 +139,23 @@ public class SpawnManagerScript : MonoBehaviour {
     void SpawnMiddleOb()
     {
         gameController.toSpawn = false;
-        Instantiate(obstacleMid, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
+        lastObstacle=Instantiate(obstacleMid, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
 
+    }
+
+    bool CheckLastObstacle(GameObject lO)
+    {
+        
+        if (obstacleType!=4&& lO.transform.position.y <= lastObstacleTrigger.transform.position.y)
+        {
+            return true;
+        }
+        else if (obstacleType == 4 && lO.transform.position.y <= GameObject.Find("lastObLaser").transform.position.y)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
     void SpawnBasic()
@@ -153,8 +195,10 @@ public class SpawnManagerScript : MonoBehaviour {
                 }
                 go.tag = "ObstacleClone";
                 go.transform.parent = gp.transform;
+                
             }
-           
+            lastObstacle = gp;
+
         }
         else
         {
@@ -178,6 +222,7 @@ public class SpawnManagerScript : MonoBehaviour {
                 go.tag = "ObstacleClone";
                 go.transform.parent = gp.transform;
             }
+            lastObstacle = gp;
         }
 
     }
@@ -189,28 +234,28 @@ public class SpawnManagerScript : MonoBehaviour {
 
         if (side == 0)
         {
-            Instantiate(tunnelLeftObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
+            lastObstacle = Instantiate(tunnelLeftObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
         }
         else
         {
-            Instantiate(tunnelRightObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
+            lastObstacle = Instantiate(tunnelRightObstacle, new Vector2(spawnMid.transform.position.x, spawnMid.transform.position.y), Quaternion.identity);
         }
     }
 
     void SpawnLaser()
     {
         gameController.toSpawn = false;
+        laserObstacle = gameController.lasers[gameController.level];
         side = Mathf.Round(Random.RandomRange(0f, 1f));
         if (side >= 0 && side < 1)
         {
-            Instantiate(laserObstacle, new Vector2(leftLaserSpawn.transform.position.x, leftLaserSpawn.transform.position.y), Quaternion.identity);
+            lastObstacle=Instantiate(laserObstacle, new Vector2(leftLaserSpawn.transform.position.x, leftLaserSpawn.transform.position.y), Quaternion.identity);
         }
         else
         {
-            Instantiate(laserObstacle, new Vector2(rightLaserSpawn.transform.position.x, rightLaserSpawn.transform.position.y), Quaternion.identity);
+            lastObstacle=Instantiate(laserObstacle, new Vector2(rightLaserSpawn.transform.position.x, rightLaserSpawn.transform.position.y), Quaternion.identity);
 
         }
-        Debug.Log("SIDE: " + side);
     }
 
     void RotateCamera()

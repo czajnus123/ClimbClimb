@@ -15,8 +15,10 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject playerPrefab, oponentPrefab, spawnPlayerPos, posLeft, leftWall, rightWall, spawnObstacleRight, spawnObstacleLeft,
         spawnLightLeft, spawnLightRight, background, background2, content,player,obstaclePrefab, rain, rainSpawnWayp,texts;
 
+    private PointManagerScript pointManager;
+
     public Sprite[] skins,BasicObSkins,MidObSkins,TunnelObSkins,LeftWalLSkins,RightWallSkins,BackgroundSkins;
-    public GameObject[] PlayerExplosions, PlayerTrails, Rains;
+    public GameObject[] PlayerExplosions, PlayerTrails, Rains,lasers;
     public Button basicButton;
     private Color targetColor;
     public Color[] shopPlatformColor, shopLightColor;
@@ -30,6 +32,8 @@ public class GameControllerScript : MonoBehaviour {
     public float speed;
 
     private float timeLeft, seconds;
+
+    private bool changeBg;
 
     public int Skin
     {
@@ -53,6 +57,7 @@ public class GameControllerScript : MonoBehaviour {
         level = 0;
         previousLevel = -1;
         resumeRain = false;
+        changeBg = false;
 
         var dev = 5f;
 
@@ -77,6 +82,8 @@ public class GameControllerScript : MonoBehaviour {
 
         player = GameObject.Find("Player(Clone)");
 
+        pointManager = GameObject.Find("PointManager").GetComponent<PointManagerScript>();
+
         Load();
         SpawnSkins();
         ChangeSkin(currentSkinIndex);
@@ -87,6 +94,10 @@ public class GameControllerScript : MonoBehaviour {
 	
 	void Update ()
     {
+
+        
+
+        level = (int)(pointManager.GetPoints() / 10) / 2;
 
         coinText.text = PlayerPrefs.GetInt("Coins").ToString();
             
@@ -130,11 +141,11 @@ public class GameControllerScript : MonoBehaviour {
                 //leftWall.GetComponent<SpriteRenderer>().sprite = LeftWalLSkins[level];
 
                 // rightWall.GetComponent<SpriteRenderer>().sprite = RightWallSkins[level];
-                background.GetComponent<SpriteRenderer>().sprite = BackgroundSkins[level];
+               /* background.GetComponent<SpriteRenderer>().sprite = BackgroundSkins[level];
                 for (int i = 0; i < background.transform.childCount; i++)
                 {
                     background.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = BackgroundSkins[level];
-                }
+                }*/
 
             }
 
