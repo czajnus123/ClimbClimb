@@ -31,9 +31,11 @@ public class LaserScript : MonoBehaviour {
     {
         yield return new WaitForSeconds(.7f);
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(1f);
         gameoController.toSpawn = true;
+        gameObject.transform.GetChild(0).gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(.5f);
+        Destroy(gameObject);
 
     }
 }
